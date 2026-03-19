@@ -8,46 +8,38 @@
 :root{--bg:#0b0f1a; --panel:rgba(18,26,47,0.85); --accent:#3df2c2; --accent2:#5aa9ff; --text:#e6ebff; --muted:#9aa4c7;}
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
 body{background:var(--bg);color:var(--text);}
-
-/* GLOBAL DATA SCRUB: Hard-hiding the footer and school text */
-footer, [id*="tesla"], [class*="tesla"] { 
-    display: none !important; 
-    opacity: 0 !important; 
-    visibility: hidden !important; 
-}
-
 .grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);background-size:50px 50px;}
-
 header{padding:2rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.05);position:sticky;top:0;z-index:100;}
 header h1{font-weight:800; color:var(--accent); font-size:1.5rem;}
-nav a{margin-left:1.2rem;color:var(--muted);text-decoration:none;font-weight:600;font-size:0.85rem;transition:0.3s;}
-nav a.active, nav a:hover{color:var(--accent);}
-
+nav a{margin-left:1.2rem;color:var(--muted);text-decoration:none;font-weight:600;font-size:0.85rem;}
+nav a.active{color:var(--accent);}
 .container{max-width:1100px; margin:0 auto; padding:4rem 2rem;}
 .event-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:2rem;}
-.event-card{
-    background:var(--panel); border:1px solid rgba(255,255,255,0.1); border-radius:24px; 
-    padding:2rem; backdrop-filter:blur(12px); border-bottom:4px solid var(--accent2);
-    display: flex; flex-direction: column;
+.event-card{background:var(--panel); border:1px solid rgba(255,255,255,0.1); border-radius:24px; padding:2rem; backdrop-filter:blur(12px); border-bottom:4px solid var(--accent2);}
+.countdown{font-family:monospace; color:var(--accent); font-weight:800; font-size:1.4rem; margin-top:15px; letter-spacing:1px;}
+
+/* New Button Style to match your theme */
+.event-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.8rem;
+    border-radius: 12px;
+    transition: 0.3s;
+    text-transform: uppercase;
 }
-
-.countdown{font-family:monospace; color:var(--accent); font-weight:800; font-size:1.4rem; margin-top:15px; letter-spacing:1px; margin-bottom: 20px;}
-
-/* Functional Button Link */
-.event-btn {
-    display: inline-block; text-align: center; text-decoration: none;
-    background: transparent; border: 1px solid var(--accent); color: var(--accent);
-    padding: 10px 20px; border-radius: 12px; font-weight: 800; font-size: 0.8rem;
-    transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+.event-link:hover {
+    background: var(--accent);
+    color: var(--bg);
 }
-.event-btn:hover { background: var(--accent); color: var(--bg); box-shadow: 0 0 15px rgba(61, 242, 194, 0.3); }
-
-.bottom-spacer { height: 100px; }
 </style>
 </head>
 <body>
 <div class="grid-lines"></div>
-
 <header>
   <h1>CivicLink OS</h1>
   <nav>
@@ -60,22 +52,17 @@ nav a.active, nav a:hover{color:var(--accent);}
     <a href="references.html">References</a>
   </nav>
 </header>
-
 <div class="container">
   <div class="event-grid">
-    
     <div class="event-card" data-date="2026-05-20T18:00:00">
       <span style="color:var(--accent2); font-weight:bold; font-size:0.7rem; letter-spacing:2px;">UPCOMING_LOG</span>
       <h3 style="margin:10px 0;">Community Tech Expo</h3>
-      <p style="color:var(--muted); font-size:0.9rem; margin-bottom: 15px;">Showcasing local student innovation and robotics.</p>
+      <p style="color:var(--muted); font-size:0.9rem;">Showcasing local student innovation and robotics.</p>
       <div class="countdown"></div>
-      <a href="about.html" class="event-btn">View Node Details</a>
+      <a href="about.html" class="event-link">View Details</a>
     </div>
-
   </div>
 </div>
-
-<div class="bottom-spacer"></div>
 
 <script>
 function timer(){
@@ -84,8 +71,6 @@ function timer(){
     if(diff>0){
       let d=Math.floor(diff/8.64e7), h=Math.floor((diff%8.64e7)/3.6e6), m=Math.floor((diff%3.6e6)/6e4), s=Math.floor((diff%6e4)/1000);
       c.querySelector('.countdown').innerText = `${d}D ${h}H ${m}M ${s}S`;
-    } else {
-      c.querySelector('.countdown').innerText = "LIVE_NOW";
     }
   });
 }
