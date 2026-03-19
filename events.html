@@ -9,13 +9,8 @@
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
 body{background:var(--bg);color:var(--text); overflow-x: hidden; min-height: 100vh;}
 
-/* THE BRANDING KILLER: Ensures the footer text is gone */
-footer, .tsa-branding, [id*="tesla"], [class*="tesla"] { 
-    display: none !important; 
-    visibility: hidden !important; 
-    opacity: 0 !important; 
-    height: 0 !important;
-}
+/* THE BRANDING KILLER */
+footer, .tsa-branding, [id*="tesla"], [class*="tesla"] { display: none !important; opacity: 0 !important; visibility: hidden !important; height: 0 !important; }
 
 .grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);background-size:50px 50px;}
 
@@ -27,7 +22,16 @@ nav a.active, nav a:hover{color:var(--accent);}
 .hero{text-align:center; padding:4rem 2rem 1rem 2rem;}
 .system-status{font-family:'JetBrains Mono', monospace; color:var(--accent); font-size:0.75rem; letter-spacing:3px; display:block; margin-bottom: 10px;}
 
-.container{max-width:1100px; margin:0 auto; padding:2rem 2rem 5rem 2rem;}
+.container{max-width:1100px; margin:0 auto; padding:0 2rem 5rem 2rem;}
+
+/* Category Filters */
+.filter-bar { display: flex; gap: 1rem; justify-content: center; margin: 2rem 0 3rem 0; }
+.filter-btn {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    color: var(--muted); padding: 8px 16px; border-radius: 12px; font-size: 0.7rem;
+    font-weight: 700; cursor: pointer; transition: 0.3s; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;
+}
+.filter-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(61,242,194,0.05); }
 
 .event-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:2rem;}
 .event-card{
@@ -44,14 +48,19 @@ nav a.active, nav a:hover{color:var(--accent);}
 .countdown-label { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
 .countdown{font-family:'JetBrains Mono', monospace; color:var(--accent); font-weight:800; font-size:1.4rem; letter-spacing:1px; margin-bottom: 20px;}
 
-/* Functional Button Link */
-.event-btn {
+.event-link {
     display: block; text-align: center; text-decoration: none;
     background: transparent; border: 1px solid var(--accent); color: var(--accent);
     padding: 12px; border-radius: 12px; font-weight: 800; font-size: 0.8rem;
-    transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+    transition: 0.3s; text-transform: uppercase;
 }
-.event-btn:hover { background: var(--accent); color: var(--bg); box-shadow: 0 0 15px rgba(61, 242, 194, 0.3); }
+.event-link:hover { background: var(--accent); color: var(--bg); }
+
+/* Spotlight Section at Bottom */
+.spotlight-mini {
+    margin-top: 4rem; padding: 2rem; background: rgba(255,255,255,0.03); 
+    border-radius: 24px; border: 1px dashed rgba(255,255,255,0.1); text-align: center;
+}
 
 .spacer { height: 100px; }
 </style>
@@ -79,8 +88,14 @@ nav a.active, nav a:hover{color:var(--accent);}
 </section>
 
 <div class="container">
+  <div class="filter-bar">
+      <button class="filter-btn active">All_Logs</button>
+      <button class="filter-btn">Workshops</button>
+      <button class="filter-btn">Expos</button>
+      <button class="filter-btn">Network</button>
+  </div>
+
   <div class="event-grid">
-    
     <div class="event-card" data-date="2026-05-20T18:00:00">
       <div>
         <span class="event-tag">UPCOMING_LOG // 001</span>
@@ -90,7 +105,7 @@ nav a.active, nav a:hover{color:var(--accent);}
       <div>
         <div class="countdown-label">TIME_TO_LAUNCH</div>
         <div class="countdown"></div>
-        <a href="about.html" class="event-btn">View Details</a>
+        <a href="about.html" class="event-link">View Details</a>
       </div>
     </div>
 
@@ -98,15 +113,31 @@ nav a.active, nav a:hover{color:var(--accent);}
       <div>
         <span class="event-tag">UPCOMING_LOG // 002</span>
         <h3>AI Ethics Seminar</h3>
-        <p>A deep dive into responsible algorithms and community-driven AI governance. Secure your spot for the live stream.</p>
+        <p>A deep dive into responsible algorithms and community-driven AI governance. Live stream will be enabled for remote nodes.</p>
       </div>
       <div>
         <div class="countdown-label">TIME_TO_LAUNCH</div>
         <div class="countdown"></div>
-        <a href="volunteer.html" class="event-btn">Register Now</a>
+        <a href="volunteer.html" class="event-btn">Register Node</a>
       </div>
     </div>
 
+    <div class="event-card" data-date="2026-04-10T09:00:00">
+      <div>
+        <span class="event-tag">UPCOMING_LOG // 003</span>
+        <h3>Network Meetup</h3>
+        <p>Connect with local resource partners and volunteers to strengthen the CivicLink community infrastructure.</p>
+      </div>
+      <div>
+        <div class="countdown-label">TIME_TO_LAUNCH</div>
+        <div class="countdown"></div>
+        <a href="submit.html" class="event-btn">Partner Access</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="spotlight-mini">
+      <p style="color: var(--accent2); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">[SYSTEM_NOTE]: More events are being indexed. Check back for global updates.</p>
   </div>
 </div>
 
