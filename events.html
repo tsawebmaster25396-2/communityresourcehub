@@ -5,18 +5,16 @@
 <title>CivicLink OS | Events</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* VERSION_CONTROL_ID: 002_CLEAN_BUILD */
 :root{--bg:#0b0f1a; --panel:rgba(18,26,47,0.85); --accent:#3df2c2; --accent2:#5aa9ff; --text:#e6ebff; --muted:#9aa4c7;}
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
 body{background:var(--bg);color:var(--text); overflow-x: hidden; min-height: 100vh;}
 
-/* GLOBAL DATA SCRUB: This targets any potential hidden text */
-footer, .tsa-branding, .school-credit, [id*="tesla"], [class*="tesla"] { 
+/* THE BRANDING KILLER: Ensures the school text is physically impossible to see */
+footer, .tsa-branding, [id*="tesla"], [class*="tesla"] { 
     display: none !important; 
-    opacity: 0 !important; 
     visibility: hidden !important; 
+    opacity: 0 !important; 
     height: 0 !important;
-    padding: 0 !important;
 }
 
 .grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);background-size:50px 50px;}
@@ -26,10 +24,10 @@ header h1{font-weight:800; color:var(--accent); font-size:1.5rem;}
 nav a{margin-left:1.2rem;color:var(--muted);text-decoration:none;font-weight:600;font-size:0.85rem;transition:0.3s;}
 nav a.active, nav a:hover{color:var(--accent);}
 
-.hero{text-align:center; padding:4rem 2rem 2rem 2rem;}
-.system-status{font-family:'JetBrains Mono', monospace; color:var(--accent); font-size:0.75rem; letter-spacing:3px; margin-bottom:1rem; display:block;}
+.hero{text-align:center; padding:4rem 2rem 1rem 2rem;}
+.system-status{font-family:'JetBrains Mono', monospace; color:var(--accent); font-size:0.75rem; letter-spacing:3px; display:block; margin-bottom: 10px;}
 
-.container{max-width:1100px; margin:0 auto; padding:0 2rem 5rem 2rem;}
+.container{max-width:1100px; margin:0 auto; padding:2rem 2rem 5rem 2rem;}
 
 .event-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:2rem;}
 .event-card{
@@ -37,21 +35,23 @@ nav a.active, nav a:hover{color:var(--accent);}
     padding:2.5rem; backdrop-filter:blur(12px); border-bottom:4px solid var(--accent2);
     transition: 0.3s ease; display: flex; flex-direction: column; justify-content: space-between;
 }
-.event-card:hover { transform: translateY(-10px); border-bottom-color: var(--accent); }
+.event-card:hover { transform: translateY(-8px); border-bottom-color: var(--accent); }
 
 .event-tag { color:var(--accent2); font-weight:bold; font-size:0.7rem; letter-spacing:2px; font-family: 'JetBrains Mono', monospace; }
 .event-card h3 { margin:15px 0 10px 0; font-size: 1.4rem; font-weight: 800; }
-.event-card p { color:var(--muted); font-size:0.95rem; line-height: 1.6; margin-bottom: 20px; }
+.event-card p { color:var(--muted); font-size:0.95rem; line-height: 1.6; margin-bottom: 20px; flex-grow: 1;}
 
-.countdown-label { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; }
-.countdown{font-family:'JetBrains Mono', monospace; color:var(--accent); font-weight:800; font-size:1.5rem; letter-spacing:1px; margin-top: 5px;}
+.countdown-label { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+.countdown{font-family:'JetBrains Mono', monospace; color:var(--accent); font-weight:800; font-size:1.4rem; letter-spacing:1px; margin-bottom: 20px;}
 
-.action-btn {
-    margin-top: 25px; padding: 12px; border-radius: 10px; border: 1px solid var(--accent);
+/* Styled link buttons */
+.event-link {
+    display: block; text-align: center; text-decoration: none;
+    padding: 12px; border-radius: 10px; border: 1px solid var(--accent);
     background: transparent; color: var(--accent); font-weight: 800; font-size: 0.8rem;
-    cursor: pointer; transition: 0.3s; text-transform: uppercase;
+    transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
 }
-.action-btn:hover { background: var(--accent); color: var(--bg); }
+.event-link:hover { background: var(--accent); color: var(--bg); box-shadow: 0 0 20px rgba(61,242,194,0.3); }
 
 .spacer { height: 100px; }
 </style>
@@ -74,33 +74,39 @@ nav a.active, nav a:hover{color:var(--accent);}
 </header>
 
 <section class="hero">
-    <span class="system-status">SCANNING_TEMPORAL_LOGS... [OK]</span>
-    <h2 style="font-size: 2.5rem; font-weight: 800;">Upcoming Operations</h2>
+    <span class="system-status">GEOSPATIAL_LOG_SCAN [ACTIVE]</span>
+    <h2 style="font-size: 2.2rem; font-weight: 800;">Temporal Operations</h2>
 </section>
 
 <div class="container">
   <div class="event-grid">
+    
     <div class="event-card" data-date="2026-05-20T18:00:00">
-      <span class="event-tag">LOG_001 // TECH_EXPO</span>
-      <h3>Community Tech Expo</h3>
-      <p>Showcasing local innovation, robotics, and engineering projects for the upcoming cycle.</p>
       <div>
-        <div class="countdown-label">Time Remaining</div>
-        <div class="countdown"></div>
+        <span class="event-tag">UPCOMING_LOG // 001</span>
+        <h3>Community Tech Expo</h3>
+        <p>Showcasing student innovation in robotics and software engineering. Explore the next generation of civic tech.</p>
       </div>
-      <button class="action-btn">View Details</button>
+      <div>
+        <div class="countdown-label">TIME_TO_LAUNCH</div>
+        <div class="countdown"></div>
+        <a href="about.html" class="event-link">View Node Details</a>
+      </div>
     </div>
 
-    <div class="event-card" data-date="2026-06-12T09:00:00">
-      <span class="event-tag">LOG_002 // WORKSHOP</span>
-      <h3>Civic AI Seminar</h3>
-      <p>A deep dive into responsible development and the future of community-driven technology.</p>
+    <div class="event-card" data-date="2026-06-15T10:00:00">
       <div>
-        <div class="countdown-label">Time Remaining</div>
-        <div class="countdown"></div>
+        <span class="event-tag">UPCOMING_LOG // 002</span>
+        <h3>AI Ethics Seminar</h3>
+        <p>A global deep dive into responsible algorithms and community-driven AI governance. Live stream enabled.</p>
       </div>
-      <button class="action-btn">Register</button>
+      <div>
+        <div class="countdown-label">TIME_TO_LAUNCH</div>
+        <div class="countdown"></div>
+        <a href="volunteer.html" class="event-link">Secure My Spot</a>
+      </div>
     </div>
+
   </div>
 </div>
 
@@ -112,13 +118,15 @@ function timer(){
     let diff = new Date(c.dataset.date) - new Date();
     if(diff > 0){
       let d = Math.floor(diff/8.64e7), h = Math.floor((diff%8.64e7)/3.6e6), m = Math.floor((diff%3.6e6)/6e4), s = Math.floor((diff%6e4)/1000);
-      c.querySelector('.countdown').innerText = `${d}D:${h < 10 ? "0"+h : h}H:${m < 10 ? "0"+m : m}M:${s < 10 ? "0"+s : s}S`;
+      c.querySelector('.countdown').innerText = `${d}D ${h}H ${m}M ${s}S`;
     } else {
-      c.querySelector('.countdown').innerText = "LIVE_NODE";
+      c.querySelector('.countdown').innerText = "SYSTEM_LIVE";
+      c.querySelector('.countdown').style.color = "var(--accent2)";
     }
   });
 }
 setInterval(timer, 1000); timer();
 </script>
+
 </body>
 </html>
