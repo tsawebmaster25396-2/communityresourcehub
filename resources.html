@@ -19,22 +19,31 @@ nav a.active{color:var(--accent);}
 
 .hero{text-align:center; padding:3rem 2rem 1rem 2rem;}
 
-/* --- THE GLOBAL MAP INTERFACE --- */
+/* --- THE MAP INTERFACE --- */
 #map {
     max-width: 1100px; margin: 0 auto 3rem auto;
-    height: 500px; 
+    height: 550px; 
     border-radius: 24px; 
     border: 2px solid var(--accent); 
     background: #070a14;
-    box-shadow: 0 0 30px rgba(61,242,194,0.1);
+    box-shadow: 0 0 40px rgba(61,242,194,0.15);
     z-index: 1;
 }
 
-/* Stylizing Leaflet to match the OS theme */
+/* Map Dark Mode Styling */
 .leaflet-container { background: #070a14 !important; }
-.leaflet-tile-pane { filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7); }
-.leaflet-popup-content-wrapper { background: var(--panel); color: var(--text); border: 1px solid var(--accent); border-radius: 12px; }
+.leaflet-tile-pane { filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.2) brightness(0.5); }
+.leaflet-popup-content-wrapper { background: #121a2f; color: var(--text); border: 1px solid var(--accent); border-radius: 8px; font-family: 'Inter', sans-serif; }
 .leaflet-popup-tip { background: var(--accent); }
+
+/* Custom Marker Styling */
+.custom-ping {
+    background: var(--accent);
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+}
 
 .search-bar-container { max-width: 1100px; margin: 0 auto 2rem auto; }
 #searchBox {
@@ -67,44 +76,58 @@ footer{text-align:center; padding:3rem; color:var(--muted); font-size:0.8rem; bo
 
 <section class="hero">
     <h2>Global Operations Map</h2>
-    <p style="color:var(--muted)">v2.0.6 Live Event Tracking System</p>
+    <p style="color:var(--muted)">LIVE_NODE_TRACKING // GLOBAL_NETWORK_v2.0.6</p>
 </section>
 
 <div id="map"></div>
 
 <div class="search-bar-container">
-    <input type="text" id="searchBox" placeholder="FILTER_NETWORK_NODES..." onkeyup="filter()">
+    <input type="text" id="searchBox" placeholder="SEARCH_GLOBAL_NODES..." onkeyup="filter()">
 </div>
 
 <div class="panel">
   <div class="spotlight-grid" id="resourceGrid">
     <div class="spotlight-card">
-        <h4 style="color:var(--accent)">System Instructions</h4>
-        <p style="font-size:0.9rem; color:var(--muted);">Click on map pins to view active event data and local resource nodes.</p>
+        <h4 style="color:var(--accent)">System Protocol</h4>
+        <p style="font-size:0.85rem; color:var(--muted);">Global events are synchronized in real-time. Use the interface to zoom and select specific operations.</p>
     </div>
   </div>
 </div>
 
+<footer>&copy; 2026 Tesla STEM HS - Chapter Team 1 | TSA Webmaster Entry</footer>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-  // INITIALIZE MAP
-  const map = L.map('map').setView([20, 0], 2); // World view
+  // INITIALIZE MAP at a global zoom level
+  const map = L.map('map').setView([20, 10], 2); 
 
-  // LOAD TILES (Styled via CSS Filter)
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap'
   }).addTo(map);
 
-  // ADD EVENT MARKERS (Actual locations)
-  const events = [
-      { name: "Oasis Center", lat: 34.0522, lng: -118.2437, info: "LA Health Support Node" },
-      { name: "TechForward", lat: 47.6062, lng: -122.3321, info: "Seattle STEM Mentoring" },
-      { name: "Harbor Base", lat: 40.7128, lng: -74.0060, info: "NY Nutritional Aid" },
-      { name: "Civic Justice", lat: 51.5074, lng: -0.1278, info: "London Legal Hub" }
+  // GLOBAL EVENTS LIST
+  const globalEvents = [
+      { name: "TechForward Summit", lat: 47.6062, lng: -122.3321, info: "Seattle, USA | Mentorship" },
+      { name: "Harbor Base Logistics", lat: 40.7128, lng: -74.0060, info: "New York, USA | Food Security" },
+      { name: "Oasis Health Node", lat: 34.0522, lng: -118.2437, info: "Los Angeles, USA | Crisis Support" },
+      { name: "Euro-Justice Lab", lat: 51.5074, lng: -0.1278, info: "London, UK | Legal Aid" },
+      { name: "Asia-Pacific Tech Hub", lat: 35.6762, lng: 139.6503, info: "Tokyo, JP | STEM Mentoring" },
+      { name: "Global South Aid", lat: -33.9249, lng: 18.4241, info: "Cape Town, SA | Support" },
+      { name: "Oceania Resource Hub", lat: -33.8688, lng: 151.2093, info: "Sydney, AU | Community Center" },
+      { name: "South America Node", lat: -23.5505, lng: -46.6333, info: "São Paulo, BR | Health Support" },
+      { name: "Northern Data Hub", lat: 59.3293, lng: 18.0686, info: "Stockholm, SE | Education" },
+      { name: "Central Mentor Lab", lat: 19.4326, lng: -99.1332, info: "Mexico City, MX | Education" }
   ];
 
-  events.forEach(e => {
-      L.marker([e.lat, e.lng]).addTo(map)
+  // Custom icon for the pings
+  const pingIcon = L.divIcon({
+      className: 'custom-ping',
+      iconSize: [12, 12],
+      iconAnchor: [6, 6]
+  });
+
+  globalEvents.forEach(e => {
+      L.marker([e.lat, e.lng], {icon: pingIcon}).addTo(map)
        .bindPopup(`<b>${e.name}</b><br>${e.info}`);
   });
 
