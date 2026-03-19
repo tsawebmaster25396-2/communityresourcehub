@@ -10,41 +10,33 @@
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
 body{background:var(--bg);color:var(--text);overflow-x:hidden;}
 
+/* Background Grid */
 .grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);background-size:50px 50px;}
 
+/* Header */
 header{padding:2rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.05);position:sticky;top:0;z-index:1000;}
 header h1{font-weight:800; color:var(--accent); font-size:1.5rem;}
-nav a{margin-left:1.2rem;color:var(--muted);text-decoration:none;font-weight:600;font-size:0.85rem;}
-nav a.active{color:var(--accent);}
+nav a{margin-left:1.2rem;color:var(--muted);text-decoration:none;font-weight:600;font-size:0.85rem;transition:0.3s;}
+nav a.active, nav a:hover{color:var(--accent);}
 
 .hero{text-align:center; padding:3rem 2rem 1rem 2rem;}
 
-/* --- THE MAP INTERFACE --- */
+/* MAP INTERFACE */
 #map {
     max-width: 1100px; margin: 0 auto 3rem auto;
-    height: 550px; 
-    border-radius: 24px; 
-    border: 2px solid var(--accent); 
-    background: #070a14;
-    box-shadow: 0 0 40px rgba(61,242,194,0.15);
+    height: 450px; border-radius: 24px; border: 2px solid var(--accent); 
+    background: #070a14; box-shadow: 0 0 40px rgba(61,242,194,0.15);
     z-index: 1;
 }
-
-/* Map Dark Mode Styling */
 .leaflet-container { background: #070a14 !important; }
 .leaflet-tile-pane { filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.2) brightness(0.5); }
-.leaflet-popup-content-wrapper { background: #121a2f; color: var(--text); border: 1px solid var(--accent); border-radius: 8px; font-family: 'Inter', sans-serif; }
+.leaflet-popup-content-wrapper { background: #121a2f; color: var(--text); border: 1px solid var(--accent); border-radius: 8px; }
 .leaflet-popup-tip { background: var(--accent); }
 
-/* Custom Marker Styling */
-.custom-ping {
-    background: var(--accent);
-    width: 12px; height: 12px;
-    border-radius: 50%;
-    border: 2px solid white;
-    box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
-}
+/* Custom Marker */
+.custom-ping { background: var(--accent); width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 10px var(--accent); }
 
+/* SEARCH BAR */
 .search-bar-container { max-width: 1100px; margin: 0 auto 2rem auto; }
 #searchBox {
     width: 100%; background: var(--panel); border: 1px solid rgba(255,255,255,0.1); 
@@ -52,9 +44,15 @@ nav a.active{color:var(--accent);}
     backdrop-filter: blur(12px); outline: none; border-left: 4px solid var(--accent);
 }
 
+/* THE INFO SQUARES (Matched to Dashboard) */
 .panel{background:var(--panel); border-radius:24px; padding:3rem; margin:2rem auto; max-width:1100px; border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(12px);}
-.spotlight-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem;}
-.spotlight-card{background:rgba(255,255,255,0.03); padding:1.5rem; border-radius:20px; border-left:4px solid var(--accent2);}
+.spotlight-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem;}
+.spotlight-card{background:rgba(255,255,255,0.03); padding:1.5rem; border-radius:20px; border-left:4px solid var(--accent2); transition:0.3s; min-height: 180px;}
+.spotlight-card:hover{transform:translateY(-5px); background:rgba(255,255,255,0.06); border-left-color: var(--accent);}
+
+.tag{background:var(--accent); color:#000; padding:2px 8px; border-radius:4px; font-size:0.7rem; font-weight:bold; text-transform:uppercase; display: inline-block; margin-bottom: 10px;}
+.spotlight-card h4 { margin-bottom: 8px; font-size: 1.2rem; }
+.spotlight-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
 
 footer{text-align:center; padding:3rem; color:var(--muted); font-size:0.8rem; border-top:1px solid rgba(255,255,255,0.05);}
 </style>
@@ -75,22 +73,56 @@ footer{text-align:center; padding:3rem; color:var(--muted); font-size:0.8rem; bo
 </header>
 
 <section class="hero">
-    <h2>Global Operations Map</h2>
-    <p style="color:var(--muted)">LIVE_NODE_TRACKING // GLOBAL_NETWORK_v2.0.6</p>
+    <h2>Global Operations Network</h2>
+    <p style="color:var(--muted)">v2.0.6 Geospatial Intelligence & Resource Index</p>
 </section>
 
 <div id="map"></div>
 
 <div class="search-bar-container">
-    <input type="text" id="searchBox" placeholder="SEARCH_GLOBAL_NODES..." onkeyup="filter()">
+    <input type="text" id="searchBox" placeholder="FILTER_DATABASE_BY_KEYWORD..." onkeyup="filter()">
 </div>
 
 <div class="panel">
+  <h3 style="margin-bottom:2rem; text-align:center; letter-spacing: 2px;">ACTIVE_NETWORK_NODES</h3>
   <div class="spotlight-grid" id="resourceGrid">
+    
     <div class="spotlight-card">
-        <h4 style="color:var(--accent)">System Protocol</h4>
-        <p style="font-size:0.85rem; color:var(--muted);">Global events are synchronized in real-time. Use the interface to zoom and select specific operations.</p>
+        <span class="tag">HEALTH</span>
+        <h4>The Oasis Center</h4>
+        <p>24/7 mental health intervention and emergency wellness protocols. (Los Angeles Node)</p>
     </div>
+
+    <div class="spotlight-card">
+        <span class="tag">EDUCATION</span>
+        <h4>TechForward</h4>
+        <p>Advanced STEM mentorship and industrial robotics training. (Seattle Node)</p>
+    </div>
+
+    <div class="spotlight-card">
+        <span class="tag">SUPPORT</span>
+        <h4>Harbor Food</h4>
+        <p>Critical nutritional aid and community supply chain logistics. (New York Node)</p>
+    </div>
+
+    <div class="spotlight-card">
+        <span class="tag">LEGAL</span>
+        <h4>Civic Justice Lab</h4>
+        <p>Pro-bono legal consultation and civil rights advisory. (London Node)</p>
+    </div>
+
+    <div class="spotlight-card">
+        <span class="tag">EDUCATION</span>
+        <h4>Tokyo STEM Hub</h4>
+        <p>Next-gen coding bootcamps and AI research mentorship. (Tokyo Node)</p>
+    </div>
+
+    <div class="spotlight-card">
+        <span class="tag">HEALTH</span>
+        <h4>Cape Aid Base</h4>
+        <p>Community wellness checkups and medical supply distribution. (Cape Town Node)</p>
+    </div>
+
   </div>
 </div>
 
@@ -98,39 +130,27 @@ footer{text-align:center; padding:3rem; color:var(--muted); font-size:0.8rem; bo
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-  // INITIALIZE MAP at a global zoom level
-  const map = L.map('map').setView([20, 10], 2); 
+  // Setup Map
+  const map = L.map('map').setView([25, 0], 2); 
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap'
-  }).addTo(map);
+  const pingIcon = L.divIcon({ className: 'custom-ping', iconSize: [12, 12], iconAnchor: [6, 6] });
 
-  // GLOBAL EVENTS LIST
-  const globalEvents = [
-      { name: "TechForward Summit", lat: 47.6062, lng: -122.3321, info: "Seattle, USA | Mentorship" },
-      { name: "Harbor Base Logistics", lat: 40.7128, lng: -74.0060, info: "New York, USA | Food Security" },
-      { name: "Oasis Health Node", lat: 34.0522, lng: -118.2437, info: "Los Angeles, USA | Crisis Support" },
-      { name: "Euro-Justice Lab", lat: 51.5074, lng: -0.1278, info: "London, UK | Legal Aid" },
-      { name: "Asia-Pacific Tech Hub", lat: 35.6762, lng: 139.6503, info: "Tokyo, JP | STEM Mentoring" },
-      { name: "Global South Aid", lat: -33.9249, lng: 18.4241, info: "Cape Town, SA | Support" },
-      { name: "Oceania Resource Hub", lat: -33.8688, lng: 151.2093, info: "Sydney, AU | Community Center" },
-      { name: "South America Node", lat: -23.5505, lng: -46.6333, info: "São Paulo, BR | Health Support" },
-      { name: "Northern Data Hub", lat: 59.3293, lng: 18.0686, info: "Stockholm, SE | Education" },
-      { name: "Central Mentor Lab", lat: 19.4326, lng: -99.1332, info: "Mexico City, MX | Education" }
+  // Map Markers
+  const locations = [
+      { name: "TechForward", lat: 47.6, lng: -122.3 },
+      { name: "Harbor Base", lat: 40.7, lng: -74.0 },
+      { name: "Oasis Center", lat: 34.0, lng: -118.2 },
+      { name: "Euro-Justice", lat: 51.5, lng: -0.1 },
+      { name: "Tokyo Hub", lat: 35.6, lng: 139.6 },
+      { name: "Cape Aid", lat: -33.9, lng: 18.4 }
   ];
 
-  // Custom icon for the pings
-  const pingIcon = L.divIcon({
-      className: 'custom-ping',
-      iconSize: [12, 12],
-      iconAnchor: [6, 6]
+  locations.forEach(loc => {
+      L.marker([loc.lat, loc.lng], {icon: pingIcon}).addTo(map).bindPopup(`<b>${loc.name}</b>`);
   });
 
-  globalEvents.forEach(e => {
-      L.marker([e.lat, e.lng], {icon: pingIcon}).addTo(map)
-       .bindPopup(`<b>${e.name}</b><br>${e.info}`);
-  });
-
+  // Card Search Logic
   function filter() {
       let val = document.getElementById('searchBox').value.toLowerCase();
       let cards = document.getElementsByClassName('spotlight-card');
