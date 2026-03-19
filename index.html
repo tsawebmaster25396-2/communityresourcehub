@@ -1,27 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>CivicLink OS</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CivicLink OS | Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0b0f1a;
+  --panel:rgba(18,26,47,0.85);
+  --accent:#3df2c2;
+  --accent2:#5aa9ff;
+  --text:#e6ebff;
+  --muted:#9aa4c7;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
+body{background:var(--bg);color:var(--text);}
+header{padding:2rem;display:flex;justify-content:space-between;align-items:center;}
+nav a{margin-left:1.5rem;color:var(--muted);text-decoration:none;font-weight:600;}
+nav a:hover{color:var(--accent);}
+.panel{background:var(--panel);padding:2rem;margin:2rem;border-radius:20px;}
+footer{text-align:center;padding:2rem;color:var(--muted);}
+</style>
 </head>
-<body style="background:#0b0f1a;color:white;">
 
-<nav>
-<a href="index.html">Dashboard</a>
-<a href="resources.html">Resource Network</a>
-<a href="submit.html">Add Resource</a>
-<a href="events.html">Events</a>
-<a href="volunteer.html">Volunteer</a>
-<a href="about.html">About</a>
-<a href="references.html">References</a>
-</nav>
+<body>
 
-<h1>CivicLink OS</h1>
+<header>
+  <h1>CivicLink OS</h1>
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="resources.html">Resource Network</a>
+    <a href="submit.html">Add Resource</a>
+    <a href="events.html">Events</a>
+    <a href="volunteer.html">Volunteer</a>
+    <a href="about.html">About</a>
+    <a href="references.html">References</a>
+  </nav>
+</header>
 
-<h2>Community Resource Hub</h2>
-<p>This platform connects residents with local nonprofits, services, and events.</p>
+<div class="panel">
+  <h2>Community Resource Hub</h2>
+  <p>
+    CivicLink OS connects residents with nonprofits, support services,
+    community events, and volunteer opportunities in one platform.
+  </p>
 
-<h2>Community Engagement</h2>
-<p>Explore events and volunteer opportunities.</p>
+  <br>
+
+  <h2>Community Engagement</h2>
+  <p>
+    Explore events, volunteer, and discover resources that support your
+    local community.
+  </p>
+</div>
+
+<footer>CivicLink OS – Community Dashboard</footer>
 
 </body>
 </html>
