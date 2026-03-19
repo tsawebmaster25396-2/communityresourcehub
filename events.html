@@ -24,7 +24,6 @@ nav a.active, nav a:hover{color:var(--accent);}
 
 .container{max-width:1100px; margin:0 auto; padding:0 2rem 5rem 2rem;}
 
-/* Impact Stats Section */
 .impact-container{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1.5rem; margin-bottom: 3rem;}
 .stat-card{background:var(--panel); border:1px solid rgba(61,242,194,0.3); padding:1.5rem; border-radius:24px; text-align:center; backdrop-filter:blur(12px); border-bottom: 4px solid var(--accent2);}
 .stat-number{display:block; font-size:2.5rem; font-weight:800; color:var(--accent2);}
@@ -43,8 +42,9 @@ nav a.active, nav a:hover{color:var(--accent);}
 .event-card{
     background:var(--panel); border:1px solid rgba(255,255,255,0.1); border-radius:24px; 
     padding:2.5rem; backdrop-filter:blur(12px); border-bottom:4px solid var(--accent2);
-    transition: 0.3s ease; display: flex; flex-direction: column; justify-content: space-between;
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column; justify-content: space-between;
 }
+.event-card.hidden { display: none; }
 .event-card:hover { transform: translateY(-8px); border-bottom-color: var(--accent); }
 
 .event-tag { color:var(--accent2); font-weight:bold; font-size:0.7rem; letter-spacing:2px; font-family: 'JetBrains Mono', monospace; }
@@ -60,9 +60,8 @@ nav a.active, nav a:hover{color:var(--accent);}
     padding: 12px; border-radius: 12px; font-weight: 800; font-size: 0.8rem;
     transition: 0.3s; text-transform: uppercase;
 }
-.event-link:hover { background: var(--accent); color: var(--bg); }
+.event-link:hover { background: var(--accent); color: var(--bg); box-shadow: 0 0 15px rgba(61, 242, 194, 0.4); }
 
-/* Bottom Spotlight Grid */
 .panel{background:var(--panel); border-radius:24px; padding:3rem; margin-top:4rem; border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(12px);}
 .spotlight-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem;}
 .spotlight-card{background:rgba(255,255,255,0.03); padding:1.5rem; border-radius:20px; border-left:4px solid var(--accent2);}
@@ -102,14 +101,14 @@ nav a.active, nav a:hover{color:var(--accent);}
   </div>
 
   <div class="filter-bar">
-      <button class="filter-btn active">All_Logs</button>
-      <button class="filter-btn">Workshops</button>
-      <button class="filter-btn">Expos</button>
-      <button class="filter-btn">Network</button>
+      <button class="filter-btn active" onclick="filterEvents('all', this)">All_Logs</button>
+      <button class="filter-btn" onclick="filterEvents('workshop', this)">Workshops</button>
+      <button class="filter-btn" onclick="filterEvents('expo', this)">Expos</button>
+      <button class="filter-btn" onclick="filterEvents('network', this)">Network</button>
   </div>
 
   <div class="event-grid">
-    <div class="event-card" data-date="2026-05-20T18:00:00">
+    <div class="event-card" data-date="2026-05-20T18:00:00" data-category="expo">
       <div>
         <span class="event-tag">UPCOMING_LOG // 001</span>
         <h3>Community Tech Expo</h3>
@@ -122,7 +121,7 @@ nav a.active, nav a:hover{color:var(--accent);}
       </div>
     </div>
 
-    <div class="event-card" data-date="2026-06-15T10:00:00">
+    <div class="event-card" data-date="2026-06-15T10:00:00" data-category="workshop">
       <div>
         <span class="event-tag">UPCOMING_LOG // 002</span>
         <h3>AI Ethics Seminar</h3>
@@ -131,7 +130,7 @@ nav a.active, nav a:hover{color:var(--accent);}
       <div>
         <div class="countdown-label">TIME_TO_LAUNCH</div>
         <div class="countdown"></div>
-        <a href="volunteer.html" class="event-btn">Register Now</a>
+        <a href="volunteer.html" class="event-link">View Details</a>
       </div>
     </div>
   </div>
@@ -143,12 +142,28 @@ nav a.active, nav a:hover{color:var(--accent);}
       <div class="spotlight-card"><span class="tag">EDUCATION</span><h4 style="margin-top:10px;">TechForward</h4><p style="font-size:0.9rem; color:var(--muted);">Advanced mentorship and robotics engineering.</p></div>
     </div>
   </div>
-
 </div>
 
 <div class="spacer"></div>
 
 <script>
+// Filter Logic
+function filterEvents(category, btn) {
+    // Update active button
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Show/Hide cards
+    document.querySelectorAll('.event-card').forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+            card.classList.remove('hidden');
+        } else {
+            card.classList.add('hidden');
+        }
+    });
+}
+
+// Timer Logic
 function timer(){
   document.querySelectorAll('.event-card').forEach(c => {
     let diff = new Date(c.dataset.date) - new Date();
