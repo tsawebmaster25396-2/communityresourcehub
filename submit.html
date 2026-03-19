@@ -3,24 +3,92 @@
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>CivicLink OS | Add Resource</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0b0f1a; --panel:rgba(18,26,47,0.85); --accent:#3df2c2; --accent2:#5aa9ff; --text:#e6ebff; --muted:#9aa4c7;}
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
-body{background:var(--bg);color:var(--text);}
-.grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);background-size:50px 50px;}
-header{padding:2rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.05);position:sticky;top:0;z-index:100;}
-header h1{font-weight:800; color:var(--accent); font-size:1.5rem;}
-nav a{margin-left:1.2rem;color:var(--muted);text-decoration:none;font-weight:600;font-size:0.85rem;}
-nav a.active{color:var(--accent);}
-.form-panel{max-width:600px; margin:4rem auto; background:var(--panel); padding:3rem; border-radius:24px; border:1px solid var(--accent); backdrop-filter:blur(12px);}
-input, select, textarea{width:100%; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.1); color:white; padding:14px; border-radius:12px; margin-top:1rem; outline:none;}
-button{width:100%; margin-top:2rem; padding:15px; background:var(--accent); color:#000; border:none; border-radius:12px; font-weight:800; cursor:pointer;}
-footer{text-align:center; padding:3rem; color:var(--muted); font-size:0.8rem;}
+:root{
+  --bg:#0b0f1a;
+  --panel:rgba(18,26,47,0.85);
+  --accent:#3df2c2;
+  --accent2:#5aa9ff;
+  --text:#e6ebff;
+  --muted:#9aa4c7;
+  --glass: blur(15px);
+}
+
+*{box-sizing:border-box; margin:0; padding:0; font-family:'Inter',sans-serif;}
+body{background:var(--bg); color:var(--text); min-height:100vh;}
+
+.grid-lines {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+    background: linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), 
+                linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+
+header {
+    padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center;
+    background: rgba(11,15,26,0.8); backdrop-filter: var(--glass);
+    border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 1000;
+}
+header h1 { font-weight: 800; color: var(--accent); font-size: 1.4rem; }
+nav { display: flex; gap: 1.2rem; }
+nav a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; transition: 0.3s; }
+nav a:hover, nav a.active { color: var(--accent); }
+
+.container { max-width: 800px; margin: 0 auto; padding: 4rem 2rem; }
+
+/* The Terminal Form Panel */
+.form-panel {
+    background: var(--panel); backdrop-filter: var(--glass);
+    padding: 3rem; border-radius: 30px; 
+    border: 1px solid var(--accent); 
+    box-shadow: 0 0 30px rgba(61, 242, 194, 0.15);
+    position: relative;
+}
+
+.system-tag {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent); font-size: 0.75rem; font-weight: bold;
+    margin-bottom: 1.5rem; display: block; letter-spacing: 2px;
+}
+
+h2 { font-size: 2rem; font-weight: 800; margin-bottom: 2rem; }
+
+label { 
+    display: block; font-family: 'JetBrains Mono', monospace; 
+    font-size: 0.7rem; color: var(--accent2); margin-top: 1.5rem; text-transform: uppercase;
+}
+
+input, select, textarea {
+    width: 100%; background: rgba(0,0,0,0.4); 
+    border: 1px solid rgba(255,255,255,0.1); 
+    color: white; padding: 15px; border-radius: 12px; 
+    margin-top: 5px; outline: none; transition: 0.3s;
+}
+
+input:focus, textarea:focus {
+    border-color: var(--accent); background: rgba(0,0,0,0.6);
+}
+
+.transmit-btn {
+    width: 100%; margin-top: 2.5rem; padding: 18px; 
+    background: var(--accent); color: #0b0f1a; 
+    border: none; border-radius: 12px; font-weight: 800; 
+    cursor: pointer; transition: 0.3s; font-size: 1rem;
+    letter-spacing: 2px;
+}
+
+.transmit-btn:hover {
+    transform: scale(1.02); background: #2bc9a1;
+    box-shadow: 0 0 20px rgba(61, 242, 194, 0.4);
+}
+
+footer { text-align: center; padding: 4rem; color: var(--muted); font-size: 0.75rem; letter-spacing: 2px; }
 </style>
 </head>
 <body>
 <div class="grid-lines"></div>
+
 <header>
   <h1>CivicLink OS</h1>
   <nav>
@@ -33,16 +101,35 @@ footer{text-align:center; padding:3rem; color:var(--muted); font-size:0.8rem;}
     <a href="references.html">References</a>
   </nav>
 </header>
-<div class="form-panel">
-  <div style="font-family:monospace; color:var(--accent2); margin-bottom:10px;">UPLINK_INITIALIZED</div>
-  <h2>Register Resource</h2>
-  <form onsubmit="alert('Data Transmitted.'); return false;">
-    <input type="text" placeholder="Provider Name" required>
-    <select><option>Public Service</option><option>Private Non-Profit</option></select>
-    <textarea rows="4" placeholder="Service Description"></textarea>
-    <button type="submit">TRANSMIT DATA</button>
-  </form>
+
+<div class="container">
+  <div class="form-panel">
+    <span class="system-tag">INITIALIZING DATA_UPLINK... [OK]</span>
+    <h2>Register Community Node</h2>
+    
+    <form onsubmit="alert('DATA_ENCRYPTED: Node information sent for moderation.'); return false;">
+      <label>Node Identity</label>
+      <input type="text" placeholder="e.g., Downtown Youth Center" required>
+      
+      <label>Operational Sector</label>
+      <select>
+        <option>Health & Wellness</option>
+        <option>Education & Mentoring</option>
+        <option>Food Security</option>
+        <option>Legal Assistance</option>
+      </select>
+      
+      <label>Node Description</label>
+      <textarea rows="5" placeholder="Enter detailed service protocols..."></textarea>
+      
+      <label>Access Link (URL)</label>
+      <input type="text" placeholder="https://">
+      
+      <button type="submit" class="transmit-btn">TRANSMIT DATA</button>
+    </form>
+  </div>
 </div>
-<footer>&copy; 2026 Tesla STEM HS</footer>
+
+<footer>&copy; 2026 Tesla STEM HS | UPLINK_SECURE_v2.0</footer>
 </body>
 </html>
