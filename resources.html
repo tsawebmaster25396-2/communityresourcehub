@@ -22,42 +22,52 @@ nav a:hover, nav a.active{color:var(--accent);}
 
 .hero{text-align:center; padding:3rem 2rem 1rem 2rem;}
 
-/* MAP INTERFACE */
-.map-container {
-    max-width: 1100px; margin: 0 auto 2rem auto;
-    height: 350px; background: rgba(0,0,0,0.4);
-    border-radius: 24px; border: 1px solid var(--accent);
-    position: relative; overflow: hidden;
-    backdrop-filter: blur(5px);
-    box-shadow: inset 0 0 50px rgba(61,242,194,0.05);
+/* --- THE MAP INTERFACE --- */
+.map-viewport {
+    max-width: 1100px; margin: 0 auto 3rem auto;
+    height: 400px; 
+    background: #070a14; /* Solid dark background to ensure visibility */
+    border-radius: 24px; 
+    border: 2px solid var(--accent); /* Thick neon border */
+    position: relative; 
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(61,242,194,0.2);
 }
-.map-overlay {
-    position: absolute; top: 10px; right: 20px; 
-    font-family: monospace; font-size: 0.7rem; color: var(--accent);
-    text-shadow: 0 0 5px var(--accent);
+
+/* Scanline Effect */
+.map-viewport::before {
+    content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    z-index: 2; background-size: 100% 4px, 3px 100%; pointer-events: none;
 }
-/* Glowing Map Nodes */
+
+.map-label {
+    position: absolute; top: 15px; left: 20px; 
+    font-family: monospace; font-size: 0.8rem; color: var(--accent);
+    z-index: 5; letter-spacing: 2px;
+}
+
+/* Glowing Interactive Nodes */
 .node {
-    position: absolute; width: 12px; height: 12px; 
+    position: absolute; width: 15px; height: 15px; 
     background: var(--accent); border-radius: 50%;
     box-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent);
-    cursor: pointer; transition: 0.3s;
+    cursor: pointer; z-index: 10; transition: 0.3s;
 }
-.node:hover { transform: scale(1.5); background: #fff; }
+.node:hover { transform: scale(1.8); background: #fff; }
 .node::after {
-    content: attr(data-label); position: absolute; top: 15px; left: 50%;
+    content: attr(data-name); position: absolute; top: 20px; left: 50%;
     transform: translateX(-50%); white-space: nowrap;
-    font-size: 0.6rem; font-weight: 800; color: var(--accent2);
+    font-size: 0.7rem; font-weight: 800; color: var(--accent2); font-family: monospace;
 }
 
 /* SEARCH & PANELS */
 .search-bar-container { max-width: 1100px; margin: 0 auto 2rem auto; }
 #searchBox {
-    width: 100%; background: var(--panel); border: 1px solid rgba(255,255,255,0.1); 
+    width: 100%; background: var(--panel); border: 1px solid var(--accent); 
     padding: 1.2rem; border-radius: 24px; color: var(--text);
-    backdrop-filter: blur(12px); outline: none; transition: 0.3s;
+    backdrop-filter: blur(12px); outline: none;
 }
-#searchBox:focus { border-color: var(--accent2); box-shadow: 0 0 15px rgba(90,169,255,0.2); }
 
 .panel{background:var(--panel); border-radius:24px; padding:3rem; margin:2rem auto; max-width:1100px; border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(12px);}
 .spotlight-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem;}
@@ -71,7 +81,7 @@ footer{text-align:center; padding:3rem; color:var(--muted); font-size:0.8rem; bo
 </head>
 <body>
 
-<div id="loader"><div class="spinner"></div><p style="margin-top:20px; color:var(--accent); font-family:monospace;">INITIALIZING_MAP_LAYERS...</p></div>
+<div id="loader"><div class="spinner"></div><p style="margin-top:20px; color:var(--accent); font-family:monospace;">LOADING_GEOSPATIAL_DATA...</p></div>
 <div class="grid-lines"></div>
 
 <header>
@@ -89,19 +99,20 @@ footer{text-align:center; padding:3rem; color:var(--muted); font-size:0.8rem; bo
 
 <section class="hero">
     <h2>Resource Interface</h2>
-    <p style="color:var(--muted)">Active Geo-Spatial Network Nodes</p>
+    <p style="color:var(--muted)">v2.0.6 Global Network Node Map</p>
 </section>
 
-<div class="map-container">
-    <div class="map-overlay">SYSTEM_MODE: GEOSPATIAL_TRACKING // STATUS: ONLINE</div>
-    <div class="node" style="top: 30%; left: 25%;" data-label="OASIS_NODE"></div>
-    <div class="node" style="top: 60%; left: 45%;" data-label="TECH_FWD"></div>
-    <div class="node" style="top: 20%; left: 70%;" data-label="HARBOR_BASE"></div>
-    <div class="node" style="top: 75%; left: 80%;" data-label="CIV_JUSTICE"></div>
+<div class="map-viewport">
+    <div class="map-label">LIVE_NETWORK_MAP // ACTIVE_NODES: 04</div>
+    
+    <div class="node" style="top: 25%; left: 20%;" data-name="OASIS_NODE"></div>
+    <div class="node" style="top: 55%; left: 40%;" data-name="TECH_FORWARD"></div>
+    <div class="node" style="top: 35%; left: 75%;" data-name="HARBOR_FOOD"></div>
+    <div class="node" style="top: 75%; left: 65%;" data-name="CIVIC_JUSTICE"></div>
 </div>
 
 <div class="search-bar-container">
-    <input type="text" id="searchBox" placeholder="FILTER_NETWORK_RESOURCES..." onkeyup="filter()">
+    <input type="text" id="searchBox" placeholder="SCAN_DATABASE_FOR_RESOURCES..." onkeyup="filter()">
 </div>
 
 <div class="panel">
