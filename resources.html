@@ -6,7 +6,6 @@
     <title>CivicLink OS | Resource Hub</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* CRITICAL: FORCING VISIBILITY */
         :root {
             --bg: #0b0f1a;
             --panel: #161b2b;
@@ -18,14 +17,13 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         
+        /* Force background to be dark, not gray */
         body { 
-            background-color: var(--bg) !important; 
+            background: var(--bg); 
             color: var(--text); 
             min-height: 100vh;
-            display: block !important; /* Forces rendering */
         }
 
-        /* Visible Grid */
         .grid-lines { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; 
             background-image: linear-gradient(rgba(61,242,194,0.1) 1px, transparent 1px), 
@@ -33,76 +31,88 @@
             background-size: 50px 50px;
         }
 
+        /* Fixed Header - Matches Homepage exactly */
         header { 
             padding: 1.5rem 2rem; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            background: #070a14; 
+            background: rgba(7, 10, 20, 0.95); 
             border-bottom: 2px solid var(--accent);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         header h1 { color: var(--accent); font-size: 1.4rem; font-weight: 800; }
 
+        /* Unified Nav - Shows ALL page names */
+        nav { display: flex; gap: 12px; }
         nav a { 
-            margin-left: 15px; 
             color: var(--muted); 
             text-decoration: none; 
             font-weight: 600; 
-            font-size: 0.8rem; 
+            font-size: 0.75rem; 
             text-transform: uppercase;
+            padding: 5px 10px;
+            transition: 0.3s;
         }
+        nav a:hover, nav a.active { color: var(--accent); }
 
-        nav a.active { color: var(--accent); border-bottom: 2px solid var(--accent); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-
-        /* Search Bar */
-        .search-area {
+        /* HUD Search Box */
+        .hud-search {
             background: var(--panel);
             padding: 20px;
             border-radius: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             border: 1px solid rgba(255,255,255,0.1);
             display: flex;
-            gap: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
 
-        input {
-            flex: 2;
-            padding: 12px;
+        .hud-search input {
+            width: 100%;
+            padding: 15px;
             background: #000;
             border: 1px solid var(--accent2);
             color: #fff;
-            border-radius: 8px;
+            border-radius: 10px;
+            outline: none;
+            font-size: 1rem;
         }
 
-        /* THE COOL SQUARES */
+        /* THE RESOURCE TILES */
         .resource-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 20px; 
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+            gap: 25px; 
         }
 
         .card { 
             background: var(--panel); 
-            padding: 30px; 
-            border-radius: 20px; 
-            border: 1px solid rgba(255,255,255,0.1);
-            min-height: 250px;
-            transition: 0.3s;
+            padding: 35px; 
+            border-radius: 25px; 
+            border: 1px solid rgba(255,255,255,0.05);
+            min-height: 280px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .card:hover {
             border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
         }
 
-        .card span { color: var(--accent); font-family: monospace; font-size: 0.7rem; }
-        .card h3 { margin: 15px 0; color: var(--accent2); font-size: 1.5rem; }
-        .card p { color: var(--muted); line-height: 1.6; }
+        .card .node-label { color: var(--accent); font-family: monospace; font-size: 0.7rem; letter-spacing: 2px; }
+        .card h3 { margin: 15px 0; color: var(--accent2); font-size: 1.6rem; font-weight: 800; }
+        .card p { color: var(--muted); line-height: 1.6; font-size: 0.95rem; }
 
+        footer { text-align: center; padding: 4rem; color: var(--muted); font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -122,41 +132,43 @@
     </header>
 
     <div class="container">
-        <div class="search-area">
-            <input type="text" placeholder="TYPE TO SCAN NETWORK..." onkeyup="filter()">
+        <div class="hud-search">
+            <input type="text" placeholder="SCANNING DATABASE... ENTER KEYWORD" onkeyup="filterNodes()">
         </div>
 
-        <div class="resource-grid" id="grid">
+        <div class="resource-grid" id="main-grid">
             <div class="card">
-                <span>NODE_01</span>
+                <span class="node-label">NODE // 001</span>
                 <h3>Oasis Center</h3>
-                <p>24/7 Mental health support and emergency crisis protocols.</p>
+                <p>24/7 mental health intervention and community crisis support protocols.</p>
             </div>
             <div class="card">
-                <span>NODE_02</span>
+                <span class="node-label">NODE // 002</span>
                 <h3>TechForward</h3>
-                <p>STEM mentoring and robotics training for local students.</p>
+                <p>Advanced STEM mentorship, coding bootcamps, and robotics training.</p>
             </div>
             <div class="card">
-                <span>NODE_03</span>
+                <span class="node-label">NODE // 003</span>
                 <h3>Harbor Food</h3>
-                <p>Nutritional aid and distribution for families in need.</p>
+                <p>Logistics and distribution for community nutritional assistance.</p>
             </div>
             <div class="card">
-                <span>NODE_04</span>
-                <h3>City Library</h3>
-                <p>Public data uplinks and research workstations.</p>
+                <span class="node-label">NODE // 004</span>
+                <h3>Public Library</h3>
+                <p>Access to high-speed data uplinks and digital research terminals.</p>
             </div>
         </div>
     </div>
 
+    <footer>&copy; 2026 Tesla STEM HS | BUILD_ID: 2.0.6_STABLE</footer>
+
     <script>
-        function filter() {
-            let input = document.querySelector('input').value.toLowerCase();
+        function filterNodes() {
+            let val = document.querySelector('input').value.toLowerCase();
             let cards = document.querySelectorAll('.card');
             cards.forEach(card => {
-                let text = card.innerText.toLowerCase();
-                card.style.display = text.includes(input) ? "block" : "none";
+                let content = card.innerText.toLowerCase();
+                card.style.display = content.includes(val) ? "flex" : "none";
             });
         }
     </script>
