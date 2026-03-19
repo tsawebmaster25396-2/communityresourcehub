@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CivicLink OS | Global Hub</title>
+<title>CivicLink OS | Resource Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
@@ -13,7 +13,6 @@ body{background:var(--bg);color:var(--text);overflow-x:hidden;}
 /* Background Grid */
 .grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);background-size:50px 50px;}
 
-/* Header */
 header{padding:2rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.05);position:sticky;top:0;z-index:1000;}
 header h1{font-weight:800; color:var(--accent); font-size:1.5rem;}
 nav a{margin-left:1.2rem;color:var(--muted);text-decoration:none;font-weight:600;font-size:0.85rem;transition:0.3s;}
@@ -21,38 +20,39 @@ nav a.active, nav a:hover{color:var(--accent);}
 
 .hero{text-align:center; padding:3rem 2rem 1rem 2rem;}
 
-/* MAP INTERFACE */
+/* --- MAP INTERFACE --- */
 #map {
     max-width: 1100px; margin: 0 auto 3rem auto;
     height: 450px; border-radius: 24px; border: 2px solid var(--accent); 
     background: #070a14; box-shadow: 0 0 40px rgba(61,242,194,0.15);
     z-index: 1;
 }
+/* Leaflet Theming */
 .leaflet-container { background: #070a14 !important; }
 .leaflet-tile-pane { filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.2) brightness(0.5); }
 .leaflet-popup-content-wrapper { background: #121a2f; color: var(--text); border: 1px solid var(--accent); border-radius: 8px; }
 .leaflet-popup-tip { background: var(--accent); }
-
-/* Custom Marker */
 .custom-ping { background: var(--accent); width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 10px var(--accent); }
 
-/* SEARCH BAR */
-.search-bar-container { max-width: 1100px; margin: 0 auto 2rem auto; }
+/* --- SEARCH BAR --- */
+.search-bar-container { max-width: 1100px; margin: 0 auto 3rem auto; padding: 0 1rem; }
 #searchBox {
-    width: 100%; background: var(--panel); border: 1px solid rgba(255,255,255,0.1); 
-    padding: 1.2rem; border-radius: 24px; color: var(--text);
-    backdrop-filter: blur(12px); outline: none; border-left: 4px solid var(--accent);
+    width: 100%; background: var(--panel); border: 1px solid rgba(61,242,194,0.3); 
+    padding: 1.5rem; border-radius: 24px; color: var(--text);
+    backdrop-filter: blur(12px); outline: none; border-left: 5px solid var(--accent);
+    font-size: 1.1rem; transition: 0.3s;
 }
+#searchBox:focus { border-color: var(--accent); box-shadow: 0 0 20px rgba(61,242,194,0.1); }
 
-/* THE INFO SQUARES (Matched to Dashboard) */
-.panel{background:var(--panel); border-radius:24px; padding:3rem; margin:2rem auto; max-width:1100px; border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(12px);}
-.spotlight-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem;}
-.spotlight-card{background:rgba(255,255,255,0.03); padding:1.5rem; border-radius:20px; border-left:4px solid var(--accent2); transition:0.3s; min-height: 180px;}
-.spotlight-card:hover{transform:translateY(-5px); background:rgba(255,255,255,0.06); border-left-color: var(--accent);}
+/* --- CARDS GRID --- */
+.panel{background:var(--panel); border-radius:24px; padding:3rem; margin:0 auto 4rem auto; max-width:1100px; border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(12px);}
+.spotlight-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:2rem;}
+.spotlight-card{background:rgba(255,255,255,0.03); padding:2rem; border-radius:20px; border-left:4px solid var(--accent2); transition:0.3s; display: flex; flex-direction: column; min-height: 200px;}
+.spotlight-card:hover{transform:translateY(-8px); background:rgba(255,255,255,0.06); border-left-color: var(--accent);}
 
-.tag{background:var(--accent); color:#000; padding:2px 8px; border-radius:4px; font-size:0.7rem; font-weight:bold; text-transform:uppercase; display: inline-block; margin-bottom: 10px;}
-.spotlight-card h4 { margin-bottom: 8px; font-size: 1.2rem; }
-.spotlight-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+.tag{background:var(--accent); color:#000; padding:2px 8px; border-radius:4px; font-size:0.7rem; font-weight:bold; text-transform:uppercase; display: inline-block; width: fit-content; margin-bottom: 12px;}
+.spotlight-card h4 { font-size: 1.4rem; margin-bottom: 10px; color: #fff; }
+.spotlight-card p { font-size: 0.95rem; color: var(--muted); line-height: 1.6; }
 
 footer{text-align:center; padding:3rem; color:var(--muted); font-size:0.8rem; border-top:1px solid rgba(255,255,255,0.05);}
 </style>
@@ -69,58 +69,72 @@ footer{text-align:center; padding:3rem; color:var(--muted); font-size:0.8rem; bo
     <a href="submit.html">Add Resource</a>
     <a href="events.html">Events</a>
     <a href="volunteer.html">Volunteer</a>
+    <a href="about.html">About</a>
+    <a href="references.html">References</a>
   </nav>
 </header>
 
 <section class="hero">
-    <h2>Global Operations Network</h2>
-    <p style="color:var(--muted)">v2.0.6 Geospatial Intelligence & Resource Index</p>
+    <h2>Global Operations Hub</h2>
+    <p style="color:var(--muted)">LIVE_NETWORK_SCAN // GEOSPATIAL_INDEX_v2.0.6</p>
 </section>
 
 <div id="map"></div>
 
 <div class="search-bar-container">
-    <input type="text" id="searchBox" placeholder="FILTER_DATABASE_BY_KEYWORD..." onkeyup="filter()">
+    <input type="text" id="searchBox" placeholder="START_TYPING_TO_FILTER_DATABASE..." onkeyup="filterNodes()">
 </div>
 
 <div class="panel">
-  <h3 style="margin-bottom:2rem; text-align:center; letter-spacing: 2px;">ACTIVE_NETWORK_NODES</h3>
+  <h3 style="margin-bottom:2.5rem; text-align:center; letter-spacing: 3px; color:var(--accent2)">SYNCHRONIZED_NODES</h3>
   <div class="spotlight-grid" id="resourceGrid">
     
     <div class="spotlight-card">
         <span class="tag">HEALTH</span>
         <h4>The Oasis Center</h4>
-        <p>24/7 mental health intervention and emergency wellness protocols. (Los Angeles Node)</p>
+        <p>Providing 24/7 mental health intervention and emergency wellness protocols. Primary Node: Los Angeles.</p>
     </div>
 
     <div class="spotlight-card">
         <span class="tag">EDUCATION</span>
         <h4>TechForward</h4>
-        <p>Advanced STEM mentorship and industrial robotics training. (Seattle Node)</p>
+        <p>Advanced STEM mentorship, coding bootcamps, and industrial robotics training. Primary Node: Seattle.</p>
     </div>
 
     <div class="spotlight-card">
         <span class="tag">SUPPORT</span>
-        <h4>Harbor Food</h4>
-        <p>Critical nutritional aid and community supply chain logistics. (New York Node)</p>
+        <h4>Harbor Food Bank</h4>
+        <p>Critical nutritional aid and community supply chain logistics for families. Primary Node: New York.</p>
     </div>
 
     <div class="spotlight-card">
         <span class="tag">LEGAL</span>
         <h4>Civic Justice Lab</h4>
-        <p>Pro-bono legal consultation and civil rights advisory. (London Node)</p>
+        <p>Pro-bono legal consultation, civil rights advisory, and advocacy services. Primary Node: London.</p>
     </div>
 
     <div class="spotlight-card">
         <span class="tag">EDUCATION</span>
         <h4>Tokyo STEM Hub</h4>
-        <p>Next-gen coding bootcamps and AI research mentorship. (Tokyo Node)</p>
+        <p>Next-gen AI research and software engineering mentorship programs. Primary Node: Tokyo.</p>
+    </div>
+
+    <div class="spotlight-card">
+        <span class="tag">SUPPORT</span>
+        <h4>Oceania Community</h4>
+        <p>Local community integration and disaster response coordination. Primary Node: Sydney.</p>
     </div>
 
     <div class="spotlight-card">
         <span class="tag">HEALTH</span>
-        <h4>Cape Aid Base</h4>
-        <p>Community wellness checkups and medical supply distribution. (Cape Town Node)</p>
+        <h4>Cape Aid Station</h4>
+        <p>Rural medical outreach and vaccine distribution logistics. Primary Node: Cape Town.</p>
+    </div>
+
+    <div class="spotlight-card">
+        <span class="tag">LEGAL</span>
+        <h4>Liberty Defense</h4>
+        <p>Protecting digital privacy and free speech rights across the web. Primary Node: Stockholm.</p>
     </div>
 
   </div>
@@ -130,32 +144,40 @@ footer{text-align:center; padding:3rem; color:var(--muted); font-size:0.8rem; bo
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-  // Setup Map
-  const map = L.map('map').setView([25, 0], 2); 
+  // 1. Initialize World Map
+  const map = L.map('map').setView([20, 0], 2); 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
   const pingIcon = L.divIcon({ className: 'custom-ping', iconSize: [12, 12], iconAnchor: [6, 6] });
 
-  // Map Markers
+  // 2. Map Marker Data
   const locations = [
       { name: "TechForward", lat: 47.6, lng: -122.3 },
       { name: "Harbor Base", lat: 40.7, lng: -74.0 },
       { name: "Oasis Center", lat: 34.0, lng: -118.2 },
       { name: "Euro-Justice", lat: 51.5, lng: -0.1 },
       { name: "Tokyo Hub", lat: 35.6, lng: 139.6 },
-      { name: "Cape Aid", lat: -33.9, lng: 18.4 }
+      { name: "Oceania Node", lat: -33.8, lng: 151.2 },
+      { name: "Cape Aid", lat: -33.9, lng: 18.4 },
+      { name: "Liberty Stockholm", lat: 59.3, lng: 18.0 }
   ];
 
   locations.forEach(loc => {
       L.marker([loc.lat, loc.lng], {icon: pingIcon}).addTo(map).bindPopup(`<b>${loc.name}</b>`);
   });
 
-  // Card Search Logic
-  function filter() {
-      let val = document.getElementById('searchBox').value.toLowerCase();
+  // 3. Search / Filter Function
+  function filterNodes() {
+      let input = document.getElementById('searchBox').value.toLowerCase();
       let cards = document.getElementsByClassName('spotlight-card');
-      for(let card of cards) {
-          card.style.display = card.innerText.toLowerCase().includes(val) ? "block" : "none";
+      
+      for (let i = 0; i < cards.length; i++) {
+          let cardText = cards[i].innerText.toLowerCase();
+          if (cardText.includes(input)) {
+              cards[i].style.display = "flex";
+          } else {
+              cards[i].style.display = "none";
+          }
       }
   }
 </script>
