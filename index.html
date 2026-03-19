@@ -9,15 +9,14 @@
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
 body{background:var(--bg);color:var(--text);overflow-x:hidden;}
 
-/* Matching Resource Hub Grid Background */
+/* Background Grid */
 .grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);background-size:50px 50px;}
 
-/* Boot Loader */
+/* Loader */
 #loader{position:fixed;top:0;left:0;width:100%;height:100%;background:#0b0f1a;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;}
 .spinner{width:40px;height:40px;border:3px solid rgba(61,242,194,0.1);border-top:3px solid var(--accent);border-radius:50%;animation:spin 1s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 
-/* Header & Nav */
 header{padding:2rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.05);position:sticky;top:0;z-index:100;}
 header h1{font-weight:800; color:var(--accent); font-size:1.5rem;}
 nav a{margin-left:1.2rem;color:var(--muted);text-decoration:none;font-weight:600;font-size:0.85rem;transition:0.3s;}
@@ -25,28 +24,28 @@ nav a.active, nav a:hover{color:var(--accent);}
 
 .hero{text-align:center; padding:4rem 2rem;}
 
-/* Impact Stats */
+/* Stats Section */
 .impact-container{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1.5rem; max-width:1100px; margin:0 auto 3rem auto; padding: 0 1rem;}
 .stat-card{background:var(--panel); border:1px solid rgba(61,242,194,0.3); padding:1.5rem; border-radius:24px; text-align:center; backdrop-filter:blur(12px); border-bottom: 4px solid var(--accent2);}
-.stat-number{display:block; font-size:2.5rem; font-weight:800; color:var(--accent2); letter-spacing: -1px;}
+.stat-number{display:block; font-size:2.5rem; font-weight:800; color:var(--accent2);}
 
-/* Panel Styling (Same as Resource Hub) */
+/* Panel & Cards */
 .panel{background:var(--panel); border-radius:24px; padding:3rem; margin:2rem auto; max-width:1100px; border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(12px);}
 .spotlight-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem;}
 .spotlight-card{background:rgba(255,255,255,0.03); padding:1.5rem; border-radius:20px; border-left:4px solid var(--accent2); transition:0.3s;}
 .spotlight-card:hover{transform:translateY(-5px); background:rgba(255,255,255,0.06); border-left-color: var(--accent);}
-
 .tag{background:var(--accent); color:#000; padding:2px 8px; border-radius:4px; font-size:0.7rem; font-weight:bold; text-transform:uppercase; display: inline-block;}
 
-/* Removed Branding from Footer */
-footer{text-align:center; padding:5rem; color:var(--muted); font-size:0.8rem; border-top:1px solid rgba(255,255,255,0.05);}
+/* THE HARD RESET: Force hide any footer text */
+footer, .tsa-branding, #footer-text { display: none !important; opacity: 0 !important; visibility: hidden !important; height: 0; padding: 0; margin: 0; }
+.spacer { height: 100px; }
 </style>
 </head>
 <body>
 
 <div id="loader">
     <div class="spinner"></div>
-    <p style="margin-top:20px; color:var(--accent); font-family:monospace; letter-spacing: 2px;">BOOTING_CIVICLINK_OS...</p>
+    <p style="margin-top:20px; color:var(--accent); font-family:monospace;">SYSTEM_READY...</p>
 </div>
 
 <div class="grid-lines"></div>
@@ -66,29 +65,29 @@ footer{text-align:center; padding:5rem; color:var(--muted); font-size:0.8rem; bo
 
 <section class="hero">
     <h2>Community Resource Hub</h2>
-    <p style="color:var(--muted); font-family: monospace;">v2.0.6 // ACTIVE_SYSTEM_READY</p>
+    <p style="color:var(--muted); font-family: monospace;">v2.0.6 // GLOBAL_INTERFACE</p>
 </section>
 
 <div class="impact-container">
-  <div class="stat-card"><span class="stat-number">124</span><span style="font-size:0.7rem; color: var(--accent); font-weight: 800; letter-spacing: 1px;">RESOURCES</span></div>
-  <div class="stat-card"><span class="stat-number">8.2k</span><span style="font-size:0.7rem; color: var(--accent); font-weight: 800; letter-spacing: 1px;">ACTIVE USERS</span></div>
-  <div class="stat-card"><span class="stat-number">15</span><span style="font-size:0.7rem; color: var(--accent); font-weight: 800; letter-spacing: 1px;">PARTNERS</span></div>
-  <div class="stat-card"><span class="stat-number">98%</span><span style="font-size:0.7rem; color: var(--accent); font-weight: 800; letter-spacing: 1px;">UPTIME</span></div>
+  <div class="stat-card"><span class="stat-number">124</span><span style="font-size:0.7rem; color: var(--accent); font-weight: 800;">RESOURCES</span></div>
+  <div class="stat-card"><span class="stat-number">8.2k</span><span style="font-size:0.7rem; color: var(--accent); font-weight: 800;">ACTIVE USERS</span></div>
+  <div class="stat-card"><span class="stat-number">15</span><span style="font-size:0.7rem; color: var(--accent); font-weight: 800;">PARTNERS</span></div>
+  <div class="stat-card"><span class="stat-number">98%</span><span style="font-size:0.7rem; color: var(--accent); font-weight: 800;">UPTIME</span></div>
 </div>
 
 <div class="panel">
   <h3 style="margin-bottom:2.5rem; text-align:center; letter-spacing: 2px; color: var(--accent2);">FEATURED_COMMUNITY_NODES</h3>
   <div class="spotlight-grid">
-    <div class="spotlight-card"><span class="tag">HEALTH</span><h4 style="margin-top:10px;">The Oasis Center</h4><p style="font-size:0.9rem; color:var(--muted);">Mental health and crisis support 24/7. Monitoring status: ACTIVE.</p></div>
-    <div class="spotlight-card"><span class="tag">EDUCATION</span><h4 style="margin-top:10px;">TechForward</h4><p style="font-size:0.9rem; color:var(--muted);">Advanced mentorship and industrial robotics. Monitoring status: ACTIVE.</p></div>
-    <div class="spotlight-card"><span class="tag">SUPPORT</span><h4 style="margin-top:10px;">Harbor Food</h4><p style="font-size:0.9rem; color:var(--muted);">Critical nutritional aid and logistics. Monitoring status: ACTIVE.</p></div>
+    <div class="spotlight-card"><span class="tag">HEALTH</span><h4 style="margin-top:10px;">The Oasis Center</h4><p style="font-size:0.9rem; color:var(--muted);">Mental health and crisis support 24/7.</p></div>
+    <div class="spotlight-card"><span class="tag">EDUCATION</span><h4 style="margin-top:10px;">TechForward</h4><p style="font-size:0.9rem; color:var(--muted);">Advanced mentorship and robotics.</p></div>
+    <div class="spotlight-card"><span class="tag">SUPPORT</span><h4 style="margin-top:10px;">Harbor Food</h4><p style="font-size:0.9rem; color:var(--muted);">Critical nutritional aid and logistics.</p></div>
   </div>
 </div>
 
-<footer></footer>
+<div class="spacer"></div>
 
 <script>
-  window.onload = () => { setTimeout(() => { document.getElementById('loader').style.display='none'; }, 1000); };
+  window.onload = () => { setTimeout(() => { document.getElementById('loader').style.display='none'; }, 800); };
 </script>
 </body>
 </html>
