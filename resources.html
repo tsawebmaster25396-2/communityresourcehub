@@ -1,176 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CivicLink OS | Resource Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #0b0f1a;
-            --panel: #161b2b;
-            --accent: #3df2c2;
-            --accent2: #5aa9ff;
-            --text: #ffffff;
-            --muted: #9aa4c7;
-        }
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CivicLink OS | Resource Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0f1a; --panel:rgba(18,26,47,0.85); --accent:#3df2c2; --accent2:#5aa9ff; --text:#e6ebff; --muted:#9aa4c7;}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
+body{background:var(--bg);color:var(--text);overflow-x:hidden;}
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        
-        /* Force background to be dark, not gray */
-        body { 
-            background: var(--bg); 
-            color: var(--text); 
-            min-height: 100vh;
-        }
+/* Background Grid */
+.grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);background-size:50px 50px;}
 
-        .grid-lines { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; 
-            background-image: linear-gradient(rgba(61,242,194,0.1) 1px, transparent 1px), 
-                              linear-gradient(90deg, rgba(61,242,194,0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-        }
+/* Signature Loader */
+#loader{position:fixed;top:0;left:0;width:100%;height:100%;background:#0b0f1a;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;}
+.spinner{width:40px;height:40px;border:3px solid rgba(61,242,194,0.1);border-top:3px solid var(--accent);border-radius:50%;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
 
-        /* Fixed Header - Matches Homepage exactly */
-        header { 
-            padding: 1.5rem 2rem; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            background: rgba(7, 10, 20, 0.95); 
-            border-bottom: 2px solid var(--accent);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+/* Header Navigation */
+header{padding:2rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.05);position:sticky;top:0;z-index:100;}
+header h1{font-weight:800; color:var(--accent); font-size:1.5rem;}
+nav a{margin-left:1.2rem;color:var(--muted);text-decoration:none;font-weight:600;font-size:0.85rem;transition:0.3s;}
+nav a.active, nav a:hover{color:var(--accent);}
 
-        header h1 { color: var(--accent); font-size: 1.4rem; font-weight: 800; }
+.hero{text-align:center; padding:4rem 2rem;}
 
-        /* Unified Nav - Shows ALL page names */
-        nav { display: flex; gap: 12px; }
-        nav a { 
-            color: var(--muted); 
-            text-decoration: none; 
-            font-weight: 600; 
-            font-size: 0.75rem; 
-            text-transform: uppercase;
-            padding: 5px 10px;
-            transition: 0.3s;
-        }
-        nav a:hover, nav a.active { color: var(--accent); }
+/* HUD Search Bar */
+.search-container { max-width: 1100px; margin: 0 auto 2rem auto; display: flex; gap: 1rem; }
+input#searchBox { 
+    flex: 1; background: var(--panel); border: 1px solid rgba(255,255,255,0.1); 
+    padding: 1rem 1.5rem; border-radius: 15px; color: white; outline: none; 
+    backdrop-filter: blur(12px); border-left: 4px solid var(--accent);
+}
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+/* Main Resource Panel */
+.panel{background:var(--panel); border-radius:24px; padding:3rem; margin:0 auto 4rem auto; max-width:1100px; border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(12px);}
+.resource-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:2rem;}
 
-        /* HUD Search Box */
-        .hud-search {
-            background: var(--panel);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 40px;
-            border: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-        }
+/* Card Style matched to Homepage Spotlight */
+.resource-card{background:rgba(255,255,255,0.03); padding:2rem; border-radius:20px; border-left:4px solid var(--accent2); transition:0.3s; display: flex; flex-direction: column; justify-content: space-between; min-height: 200px;}
+.resource-card:hover{transform:translateY(-8px); background:rgba(255,255,255,0.06); box-shadow: 0 15px 30px rgba(0,0,0,0.3);}
 
-        .hud-search input {
-            width: 100%;
-            padding: 15px;
-            background: #000;
-            border: 1px solid var(--accent2);
-            color: #fff;
-            border-radius: 10px;
-            outline: none;
-            font-size: 1rem;
-        }
+.tag{display: inline-block; background:var(--accent); color:#000; padding:2px 8px; border-radius:4px; font-size:0.7rem; font-weight:bold; text-transform:uppercase; margin-bottom: 1rem;}
+.resource-card h4 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+.resource-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
 
-        /* THE RESOURCE TILES */
-        .resource-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-            gap: 25px; 
-        }
-
-        .card { 
-            background: var(--panel); 
-            padding: 35px; 
-            border-radius: 25px; 
-            border: 1px solid rgba(255,255,255,0.05);
-            min-height: 280px;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .card:hover {
-            border-color: var(--accent);
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-        }
-
-        .card .node-label { color: var(--accent); font-family: monospace; font-size: 0.7rem; letter-spacing: 2px; }
-        .card h3 { margin: 15px 0; color: var(--accent2); font-size: 1.6rem; font-weight: 800; }
-        .card p { color: var(--muted); line-height: 1.6; font-size: 0.95rem; }
-
-        footer { text-align: center; padding: 4rem; color: var(--muted); font-size: 0.8rem; }
-    </style>
+footer{text-align:center; padding:3rem; color:var(--muted); font-size:0.8rem; border-top:1px solid rgba(255,255,255,0.05);}
+</style>
 </head>
 <body>
-    <div class="grid-lines"></div>
 
-    <header>
-        <h1>CivicLink OS</h1>
-        <nav>
-            <a href="index.html">Dashboard</a>
-            <a href="resources.html" class="active">Resource Hub</a>
-            <a href="submit.html">Add Resource</a>
-            <a href="events.html">Events</a>
-            <a href="volunteer.html">Volunteer</a>
-            <a href="about.html">About</a>
-            <a href="references.html">References</a>
-        </nav>
-    </header>
+<div id="loader">
+    <div class="spinner"></div>
+    <p style="margin-top:20px; color:var(--accent); font-family:monospace;">SCANNING_DATABASE...</p>
+</div>
 
-    <div class="container">
-        <div class="hud-search">
-            <input type="text" placeholder="SCANNING DATABASE... ENTER KEYWORD" onkeyup="filterNodes()">
-        </div>
+<div class="grid-lines"></div>
 
-        <div class="resource-grid" id="main-grid">
-            <div class="card">
-                <span class="node-label">NODE // 001</span>
-                <h3>Oasis Center</h3>
-                <p>24/7 mental health intervention and community crisis support protocols.</p>
-            </div>
-            <div class="card">
-                <span class="node-label">NODE // 002</span>
-                <h3>TechForward</h3>
-                <p>Advanced STEM mentorship, coding bootcamps, and robotics training.</p>
-            </div>
-            <div class="card">
-                <span class="node-label">NODE // 003</span>
-                <h3>Harbor Food</h3>
-                <p>Logistics and distribution for community nutritional assistance.</p>
-            </div>
-            <div class="card">
-                <span class="node-label">NODE // 004</span>
-                <h3>Public Library</h3>
-                <p>Access to high-speed data uplinks and digital research terminals.</p>
-            </div>
+<header>
+  <h1>CivicLink OS</h1>
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="resources.html" class="active">Resource Hub</a>
+    <a href="submit.html">Add Resource</a>
+    <a href="events.html">Events</a>
+    <a href="volunteer.html">Volunteer</a>
+    <a href="about.html">About</a>
+    <a href="references.html">References</a>
+  </nav>
+</header>
+
+<section class="hero">
+    <h2>Global Resource Index</h2>
+    <p style="color:var(--muted)">Filtered access to validated community nodes</p>
+</section>
+
+<div class="search-container">
+    <input type="text" id="searchBox" placeholder="TYPE_TO_FILTER_NODES..." onkeyup="filterResources()">
+</div>
+
+<div class="panel">
+  <div class="resource-grid" id="resourceGrid">
+    
+    <div class="resource-card" data-cat="Health">
+        <div>
+            <span class="tag">HEALTH</span>
+            <h4>The Oasis Center</h4>
+            <p>Providing 24/7 crisis support and mental health wellness protocols for the community.</p>
         </div>
     </div>
 
-    <footer>&copy; 2026 Tesla STEM HS | BUILD_ID: 2.0.6_STABLE</footer>
+    <div class="resource-card" data-cat="Education">
+        <div>
+            <span class="tag">EDUCATION</span>
+            <h4>TechForward</h4>
+            <p>Next-gen STEM mentoring and robotic manufacturing workshops for youth.</p>
+        </div>
+    </div>
 
-    <script>
-        function filterNodes() {
-            let val = document.querySelector('input').value.toLowerCase();
-            let cards = document.querySelectorAll('.card');
-            cards.forEach(card => {
-                let content = card.innerText.toLowerCase();
-                card.style.display = content.includes(val) ? "flex" : "none";
-            });
+    <div class="resource-card" data-cat="Support">
+        <div>
+            <span class="tag">SUPPORT</span>
+            <h4>Harbor Food Bank</h4>
+            <p>Critical nutritional support and meal distribution logistics for local families.</p>
+        </div>
+    </div>
+
+    <div class="resource-card" data-cat="Education">
+        <div>
+            <span class="tag">EDUCATION</span>
+            <h4>Public Library</h4>
+            <p>Digital literacy center providing high-speed data uplinks and research tools.</p>
+        </div>
+    </div>
+
+    <div class="resource-card" data-cat="Legal">
+        <div>
+            <span class="tag">LEGAL</span>
+            <h4>Civic Justice Lab</h4>
+            <p>Pro-bono legal consultation and civil rights advisory services.</p>
+        </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>&copy; 2026 Tesla STEM HS - Chapter Team 1 | TSA Webmaster Entry</footer>
+
+<script>
+    // Boot Loader logic
+    window.onload = () => { 
+        setTimeout(() => { 
+            document.getElementById('loader').style.display='none'; 
+        }, 800); 
+    };
+
+    // Filter logic
+    function filterResources() {
+        let input = document.getElementById('searchBox').value.toLowerCase();
+        let cards = document.getElementsByClassName('resource-card');
+        
+        for (let i = 0; i < cards.length; i++) {
+            let text = cards[i].innerText.toLowerCase();
+            cards[i].style.display = text.includes(input) ? "flex" : "none";
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>
