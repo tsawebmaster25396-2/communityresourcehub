@@ -27,6 +27,7 @@ nav a.active, nav a:hover{color:var(--accent);}
 }
 .leaflet-container { background: #070a14 !important; }
 .leaflet-tile-pane { filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.2) brightness(0.5); }
+.leaflet-control-attribution { display: none !important; } /* Hard hide for all map text */
 .leaflet-popup-content-wrapper { background: #121a2f; color: var(--text); border: 1px solid var(--accent); border-radius: 8px; }
 .leaflet-popup-tip { background: var(--accent); }
 .custom-ping { background: var(--accent); width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 10px var(--accent); }
@@ -92,7 +93,7 @@ footer { padding: 4rem 0; }
     <div class="spotlight-card">
         <span class="tag">EDUCATION</span>
         <h4>TechForward</h4>
-        <p>Advanced STEM mentorship, coding bootcamps, and industrial robotics training. Primary Node: Seattle.</p>
+        <p>Advanced mentorship, coding bootcamps, and robotics training. Primary Node: Seattle.</p>
     </div>
 
     <div class="spotlight-card">
@@ -109,7 +110,7 @@ footer { padding: 4rem 0; }
 
     <div class="spotlight-card">
         <span class="tag">EDUCATION</span>
-        <h4>Tokyo STEM Hub</h4>
+        <h4>Tokyo Hub</h4>
         <p>Next-gen AI research and software engineering mentorship programs. Primary Node: Tokyo.</p>
     </div>
 
@@ -126,7 +127,8 @@ footer { padding: 4rem 0; }
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-  const map = L.map('map').setView([20, 0], 2); 
+  // Setup Map with NO attribution text
+  const map = L.map('map', { attributionControl: false }).setView([20, 0], 2); 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
   const pingIcon = L.divIcon({ className: 'custom-ping', iconSize: [12, 12], iconAnchor: [6, 6] });
