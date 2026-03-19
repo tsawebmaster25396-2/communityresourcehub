@@ -3,37 +3,44 @@
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>CivicLink OS | References</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0b0f1a; --panel:rgba(18,26,47,0.85); --accent:#3df2c2; --accent2:#5aa9ff; --text:#e6ebff; --muted:#9aa4c7;}
+:root{--bg:#0b0f1a; --panel:rgba(18,26,47,0.95); --accent:#3df2c2; --accent2:#5aa9ff; --text:#e6ebff; --muted:#9aa4c7; --border:rgba(255,255,255,0.1);}
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
-body{background:var(--bg);color:var(--text); min-height: 100vh;}
+body{background:var(--bg);color:var(--text); min-height: 100vh; line-height: 1.6;}
 
-/* THE BRANDING KILLER */
-footer, [id*="tesla"], [class*="tesla"], .tsa-footer { display: none !important; opacity: 0 !important; visibility: hidden !important; height: 0 !important; pointer-events: none !important; }
+/* BRANDING PURGE */
+footer, [id*="tesla"], [class*="tesla"], .tsa-footer { display: none !important; opacity: 0 !important; visibility: hidden !important; height: 0 !important; }
 
 .grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);background-size:50px 50px;}
-header{padding:2rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.05);position:sticky;top:0;z-index:1000;}
-header h1{font-weight:800; color:var(--accent); font-size:1.5rem;}
-nav a{margin-left:1.2rem;color:var(--muted);text-decoration:none;font-weight:600;font-size:0.85rem;}
-nav a.active{color:var(--accent);}
+header{padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(10px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:1000;}
+header h1{font-weight:800; color:var(--accent); font-size:1.3rem; letter-spacing:1px;}
+nav a{margin-left:1.2rem;color:var(--muted);text-decoration:none;font-weight:600;font-size:0.8rem;transition:0.3s;}
+nav a.active, nav a:hover{color:var(--accent);}
 
 .container{max-width:1100px; margin:0 auto; padding:2rem;}
-.panel{background:var(--panel); padding:2.5rem; border-radius:24px; border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(12px); margin-bottom:2rem;}
-.mono{font-family:'JetBrains Mono', monospace; font-size:0.75rem; color:var(--accent2); letter-spacing:1px;}
 
-h2{margin:10px 0 20px 0; font-size:1.8rem; font-weight:800;}
+/* Document Panels */
+.doc-panel{background:var(--panel); border-radius:16px; border:1px solid var(--border); margin-bottom:3rem; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,0.3);}
+.doc-header{background:rgba(90, 169, 255, 0.1); padding:1.5rem 2rem; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;}
+.doc-title{font-weight:800; font-size:1.1rem; color:var(--accent2); text-transform:uppercase; letter-spacing:1px;}
+.doc-content{padding:2rem;}
 
-.table-container{overflow-x:auto; margin-top:1.5rem; border-radius:12px; border:1px solid rgba(255,255,255,0.05);}
-table{width:100%; border-collapse:collapse; background:rgba(255,255,255,0.02);}
-th{background:rgba(90, 169, 255, 0.1); color:var(--accent2); text-transform:uppercase; font-size:0.7rem; letter-spacing:1px; padding:15px; text-align:left;}
-td{padding:12px 15px; border-bottom:1px solid rgba(255,255,255,0.05); font-size:0.85rem; vertical-align:top;}
-tr:hover{background:rgba(255,255,255,0.03);}
+/* Table Styling */
+table{width:100%; border-collapse:collapse; margin-bottom:1rem;}
+th{text-align:left; padding:12px; font-size:0.7rem; color:var(--accent); text-transform:uppercase; border-bottom:2px solid var(--border); font-family:'JetBrains Mono', monospace;}
+td{padding:12px; font-size:0.85rem; border-bottom:1px solid rgba(255,255,255,0.05); color:var(--text);}
+tr:last-child td{border-bottom:none;}
+.initials{font-family:'JetBrains Mono', monospace; color:var(--accent2); font-weight:bold;}
 
-.status-tag{padding:4px 8px; border-radius:6px; font-size:0.65rem; font-weight:800; border:1px solid var(--accent); color:var(--accent); font-family:'JetBrains Mono', monospace;}
+/* Checklist specific */
+.checklist-item{display:flex; justify-content:space-between; padding:15px 0; border-bottom:1px solid var(--border);}
+.q-text{max-width:70%; font-weight:600;}
+.ans-box{font-family:'JetBrains Mono', monospace; color:var(--accent); font-weight:800; border:1px solid var(--accent); padding:4px 12px; border-radius:4px;}
 
-.btn-group{display:flex; gap:1rem; margin-top:2rem;}
-.btn{background:var(--accent); color:#000; padding:12px 24px; text-decoration:none; border-radius:12px; font-weight:800; font-size:0.8rem; text-transform:uppercase; transition:0.3s;}
+.signature-block{margin-top:2rem; padding-top:1.5rem; border-top:1px dashed var(--border); display:grid; grid-template-columns: 1fr 1fr; gap:2rem;}
+.sig-label{font-size:0.7rem; color:var(--muted); text-transform:uppercase; margin-bottom:5px;}
+.sig-name{font-family:'JetBrains Mono', monospace; font-size:1rem; color:var(--accent);}
 </style>
 </head>
 <body>
@@ -41,7 +48,7 @@ tr:hover{background:rgba(255,255,255,0.03);}
 <div class="grid-lines"></div>
 
 <header>
-  <h1>CivicLink OS</h1>
+  <h1>CIVICLINK_OS // REF</h1>
   <nav>
     <a href="index.html">Dashboard</a>
     <a href="resources.html">Resource Hub</a>
@@ -54,49 +61,76 @@ tr:hover{background:rgba(255,255,255,0.03);}
 </header>
 
 <div class="container">
-  
-  <div class="panel">
-    <div class="mono">COMPLIANCE_CHECKLIST_v1.0</div>
-    <h2>Copyright Verification</h2>
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr><th>Question</th><th>Status</th><th>Notes</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Integrate music/sound?</td><td><span class="status-tag">NO</span></td><td>Verified by A.Y., F.V., V.F. </td></tr>
-          <tr><td>Integrate graphics/videos?</td><td><span class="status-tag">NO</span></td><td>All UI original code </td></tr>
-          <tr><td>Use others' research?</td><td><span class="status-tag">YES</span></td><td>Properly cited in documentation </td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
 
-  <div class="panel">
-    <div class="mono">WORK_LOG_HISTORY</div>
-    <h2>Operational Work Logs</h2>
-    <div class="table-container">
+  <section class="doc-panel">
+    <div class="doc-header">
+      <div class="doc-title">Technology Student Association Work Log</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:0.7rem;">LOG_COUNT: 12</div>
+    </div>
+    <div class="doc-content">
       <table>
         <thead>
-          <tr><th>Date</th><th>Task</th><th>Time</th><th>Initials</th><th>Comments</th></tr>
+          <tr>
+            <th style="width:100px;">Date</th>
+            <th style="width:150px;">Task</th>
+            <th style="width:80px;">Time</th>
+            <th style="width:120px;">Team Member</th>
+            <th>Comments</th>
+          </tr>
         </thead>
         <tbody>
-          <tr><td>11/2/25</td><td>Brainstorm</td><td>2h</td><td>A.Y, F.V, V.F</td><td>Planned website, logistics, and layout [cite: 1]</td></tr>
-          <tr><td>11/12/25</td><td>Work on website</td><td>2h</td><td>F.V, A.Y, V.F</td><td>Fix code and designed homepage [cite: 1]</td></tr>
-          <tr><td>11/20/25</td><td>Work on website</td><td>2h</td><td>A.Y</td><td>Improvements to website [cite: 1]</td></tr>
-          <tr><td>12/5/25</td><td>Edit website</td><td>4h</td><td>A.Y, F.V</td><td>Adjusted according to feedback [cite: 1]</td></tr>
-          <tr><td>12/17/25</td><td>Add more pages</td><td>4h</td><td>A.Y</td><td>Made key code changes [cite: 1]</td></tr>
-          <tr><td>12/28/25</td><td>Edit/Code website</td><td>2h</td><td>A.Y, V.F, F.V</td><td>Synced themes on all pages [cite: 1]</td></tr>
-          <tr><td>1/4/26</td><td>Work on website</td><td>2h</td><td>A.Y, F.V, V.F</td><td>Edit pages [cite: 2]</td></tr>
-          <tr><td>1/20/26</td><td>Planning</td><td>1h</td><td>F.V, A.Y, V.F</td><td>Design and plan [cite: 2]</td></tr>
-          <tr><td>2/5/26</td><td>Work on tabs</td><td>2h</td><td>A.Y, V.F</td><td>Other tabs on website [cite: 2]</td></tr>
-          <tr><td>2/17/26</td><td>Adding extras</td><td>2h</td><td>A.Y, F.V</td><td>Coded an interactive map [cite: 2]</td></tr>
-          <tr><td>2/27/26</td><td>Debugging</td><td>1h</td><td>A.Y</td><td>Fixed errors and syntax [cite: 2]</td></tr>
-          <tr><td>3/15/26</td><td>Finalize website</td><td>2h</td><td>A.Y, V.F, F.V</td><td>Finishing touches [cite: 2]</td></tr>
+          <tr><td>11/2/25</td><td>Brainstorm</td><td>2 hrs</td><td class="initials">A.V., F.V., V.F.</td><td>Planned website, logistics, and decided on page layout. [cite: 1]</td></tr>
+          <tr><td>11/12/25</td><td>Work on website</td><td>2 hrs</td><td class="initials">F.V., A.V., V.F.</td><td>Fix code and designed homepage [cite: 1]</td></tr>
+          <tr><td>11/20/25</td><td>Work on website</td><td>2 hrs</td><td class="initials">A.V.</td><td>Improvements to website [cite: 1]</td></tr>
+          <tr><td>12/5/25</td><td>Edit website</td><td>4 hrs</td><td class="initials">A.V., F.V.</td><td>Read over feedback; adjust and edit the website according to feedback [cite: 1]</td></tr>
+          <tr><td>12/17/25</td><td>Add more pages</td><td>4 hrs</td><td class="initials">A.V.</td><td>Made key code changes [cite: 1]</td></tr>
+          <tr><td>12/28/25</td><td>Edit/Code website</td><td>2 hrs</td><td class="initials">A.V., V.F., F.V.</td><td>Edit and code the website so that the themes on all pages match. [cite: 1]</td></tr>
+          <tr><td>1/4/26</td><td>Work on website</td><td>2 hrs</td><td class="initials">A.V., F.V., V.F.</td><td>Edit pages [cite: 2]</td></tr>
+          <tr><td>1/20/26</td><td>Planning</td><td>1 hr</td><td class="initials">F.V., A.V., V.F.</td><td>Design and plan [cite: 2]</td></tr>
+          <tr><td>2/5/26</td><td>Work on tabs</td><td>2 hrs</td><td class="initials">A.V., V.F.</td><td>Other tabs on website [cite: 2]</td></tr>
+          <tr><td>2/17/26</td><td>Adding extras</td><td>2 hrs</td><td class="initials">A.V., F.V.</td><td>Added more details to website and coded an interactive map. [cite: 2]</td></tr>
+          <tr><td>2/27/26</td><td>Debugging</td><td>1 hr</td><td class="initials">A.V.</td><td>Fixed errors and syntax [cite: 2]</td></tr>
+          <tr><td>3/15/26</td><td>Finalize website</td><td>2 hrs</td><td class="initials">A.V., V.F., F.V.</td><td>Finishing touches [cite: 2]</td></tr>
         </tbody>
       </table>
     </div>
-  </div>
+  </section>
+
+  <section class="doc-panel">
+    <div class="doc-header">
+      <div class="doc-title">Student Copyright Checklist</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:0.7rem;">STATUS: VERIFIED</div>
+    </div>
+    <div class="doc-content">
+      
+      <div class="checklist-item">
+        <div class="q-text">1) Does your solution integrate any type of music and/or sound? </div>
+        <div class="ans-box">NO</div>
+      </div>
+
+      <div class="checklist-item">
+        <div class="q-text">2) Does your solution integrate any graphics/videos? </div>
+        <div class="ans-box">NO</div>
+      </div>
+
+      <div class="checklist-item" style="border-bottom:none;">
+        <div class="q-text">3) Does your solution use another's thoughts or research? </div>
+        <div class="ans-box">NO</div>
+      </div>
+
+      <div class="signature-block">
+        <div>
+          <div class="sig-label">Student Initials</div>
+          <div class="sig-name">A.V., F.V., V.F. </div>
+        </div>
+        <div>
+          <div class="sig-label">Chapter Advisor</div>
+          <div class="sig-name">Shannon McMaster </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
 
 </div>
 
