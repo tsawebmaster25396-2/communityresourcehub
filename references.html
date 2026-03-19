@@ -24,19 +24,16 @@ nav a.active{color:var(--accent);}
 
 h2{margin:10px 0 20px 0; font-size:1.8rem; font-weight:800;}
 
-/* Data Table Styling */
 .table-container{overflow-x:auto; margin-top:1.5rem; border-radius:12px; border:1px solid rgba(255,255,255,0.05);}
 table{width:100%; border-collapse:collapse; background:rgba(255,255,255,0.02);}
 th{background:rgba(90, 169, 255, 0.1); color:var(--accent2); text-transform:uppercase; font-size:0.7rem; letter-spacing:1px; padding:15px; text-align:left;}
-td{padding:15px; border-bottom:1px solid rgba(255,255,255,0.05); font-size:0.85rem; vertical-align:top;}
+td{padding:12px 15px; border-bottom:1px solid rgba(255,255,255,0.05); font-size:0.85rem; vertical-align:top;}
 tr:hover{background:rgba(255,255,255,0.03);}
 
 .status-tag{padding:4px 8px; border-radius:6px; font-size:0.65rem; font-weight:800; border:1px solid var(--accent); color:var(--accent); font-family:'JetBrains Mono', monospace;}
 
 .btn-group{display:flex; gap:1rem; margin-top:2rem;}
 .btn{background:var(--accent); color:#000; padding:12px 24px; text-decoration:none; border-radius:12px; font-weight:800; font-size:0.8rem; text-transform:uppercase; transition:0.3s;}
-.btn-alt{background:transparent; border:1px solid var(--accent2); color:var(--accent2);}
-.btn:hover{transform:translateY(-2px); box-shadow:0 5px 15px rgba(61,242,194,0.3);}
 </style>
 </head>
 <body>
@@ -59,66 +56,43 @@ tr:hover{background:rgba(255,255,255,0.03);}
 <div class="container">
   
   <div class="panel">
-    <div class="mono">SYSTEM_AUDIT_LOG // COPYRIGHT</div>
-    <h2>Intellectual Property Status</h2>
-    <p style="color:var(--muted); font-size:0.9rem;">Verification of third-party assets and original architecture. Audit completed by <strong>A.Y., F.V., V.F.</strong>.</p>
-    
+    <div class="mono">COMPLIANCE_CHECKLIST_v1.0</div>
+    <h2>Copyright Verification</h2>
     <div class="table-container">
       <table>
         <thead>
-          <tr>
-            <th>Category</th>
-            <th>Confirmation Status</th>
-            <th>Source / Credit</th>
-          </tr>
+          <tr><th>Question</th><th>Status</th><th>Notes</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Audio/Sound</td>
-            <td><span class="status-tag">NO_MUSIC_FOUND</span></td>
-            <td>Original System Code [cite: 21]</td>
-          </tr>
-          <tr>
-            <td>Graphics/UI</td>
-            <td><span class="status-tag">ROYALTY_FREE</span></td>
-            <td>Original Design / Google Fonts [cite: 30]</td>
-          </tr>
-          <tr>
-            <td>Architecture</td>
-            <td><span class="status-tag">VERIFIED</span></td>
-            <td>Development Team 1 [cite: 43]</td>
-          </tr>
+          <tr><td>Integrate music/sound?</td><td><span class="status-tag">NO</span></td><td>Verified by A.Y., F.V., V.F. </td></tr>
+          <tr><td>Integrate graphics/videos?</td><td><span class="status-tag">NO</span></td><td>All UI original code </td></tr>
+          <tr><td>Use others' research?</td><td><span class="status-tag">YES</span></td><td>Properly cited in documentation </td></tr>
         </tbody>
       </table>
-    </div>
-    
-    <div class="btn-group">
-      <a href="copyright-checklist.pdf" class="btn" target="_blank">View Full Checklist</a>
-      <a href="work-log.pdf" class="btn btn-alt" target="_blank">Download PDF Logs</a>
     </div>
   </div>
 
   <div class="panel">
-    <div class="mono">OPERATIONAL_HISTORY // LOGS</div>
-    <h2>System Development Work Log</h2>
-    
+    <div class="mono">WORK_LOG_HISTORY</div>
+    <h2>Operational Work Logs</h2>
     <div class="table-container">
       <table>
         <thead>
-          <tr>
-            <th>Date</th>
-            <th>Operation</th>
-            <th>Duration</th>
-            <th>Comments</th>
-          </tr>
+          <tr><th>Date</th><th>Task</th><th>Time</th><th>Initials</th><th>Comments</th></tr>
         </thead>
         <tbody>
-          <tr><td>11/2/25</td><td>Brainstorm</td><td>2 hrs</td><td>Planned website logistics and page layout.</td></tr>
-          <tr><td>11/12/25</td><td>Work on website</td><td>2 hrs</td><td>Fix code and designed homepage.</td></tr>
-          <tr><td>12/5/25</td><td>Feedback Edit</td><td>4 hrs</td><td>Adjusted website according to user feedback.</td></tr>
-          <tr><td>1/4/26</td><td>Work on website</td><td>2 hrs</td><td>Edit pages and navigation flow.</td></tr>
-          <tr><td>2/17/26</td><td>Interactive Nodes</td><td>2 hrs</td><td>Added details and coded interactive map.</td></tr>
-          <tr><td>3/15/26</td><td>Finalize System</td><td>2 hrs</td><td>System touches and final optimization.</td></tr>
+          <tr><td>11/2/25</td><td>Brainstorm</td><td>2h</td><td>A.Y, F.V, V.F</td><td>Planned website, logistics, and layout [cite: 1]</td></tr>
+          <tr><td>11/12/25</td><td>Work on website</td><td>2h</td><td>F.V, A.Y, V.F</td><td>Fix code and designed homepage [cite: 1]</td></tr>
+          <tr><td>11/20/25</td><td>Work on website</td><td>2h</td><td>A.Y</td><td>Improvements to website [cite: 1]</td></tr>
+          <tr><td>12/5/25</td><td>Edit website</td><td>4h</td><td>A.Y, F.V</td><td>Adjusted according to feedback [cite: 1]</td></tr>
+          <tr><td>12/17/25</td><td>Add more pages</td><td>4h</td><td>A.Y</td><td>Made key code changes [cite: 1]</td></tr>
+          <tr><td>12/28/25</td><td>Edit/Code website</td><td>2h</td><td>A.Y, V.F, F.V</td><td>Synced themes on all pages [cite: 1]</td></tr>
+          <tr><td>1/4/26</td><td>Work on website</td><td>2h</td><td>A.Y, F.V, V.F</td><td>Edit pages [cite: 2]</td></tr>
+          <tr><td>1/20/26</td><td>Planning</td><td>1h</td><td>F.V, A.Y, V.F</td><td>Design and plan [cite: 2]</td></tr>
+          <tr><td>2/5/26</td><td>Work on tabs</td><td>2h</td><td>A.Y, V.F</td><td>Other tabs on website [cite: 2]</td></tr>
+          <tr><td>2/17/26</td><td>Adding extras</td><td>2h</td><td>A.Y, F.V</td><td>Coded an interactive map [cite: 2]</td></tr>
+          <tr><td>2/27/26</td><td>Debugging</td><td>1h</td><td>A.Y</td><td>Fixed errors and syntax [cite: 2]</td></tr>
+          <tr><td>3/15/26</td><td>Finalize website</td><td>2h</td><td>A.Y, V.F, F.V</td><td>Finishing touches [cite: 2]</td></tr>
         </tbody>
       </table>
     </div>
