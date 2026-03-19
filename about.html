@@ -8,13 +8,21 @@
 :root{--bg:#0b0f1a; --panel:rgba(18,26,47,0.85); --accent:#3df2c2; --accent2:#5aa9ff; --text:#e6ebff; --muted:#9aa4c7;}
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
 body{background:var(--bg);color:var(--text);}
+
+/* THE BRANDING KILLER */
+footer, .tsa-branding, [id*="tesla"], [class*="tesla"] { 
+    display: none !important; 
+    opacity: 0 !important; 
+    visibility: hidden !important; 
+    height: 0 !important; 
+}
+
 .grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);background-size:50px 50px;}
 header{padding:2rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.05);position:sticky;top:0;z-index:100;}
 header h1{font-weight:800; color:var(--accent); font-size:1.5rem;}
 nav a{margin-left:1.2rem;color:var(--muted);text-decoration:none;font-weight:600;font-size:0.85rem;}
 nav a.active{color:var(--accent);}
 .panel{background:var(--panel); padding:3rem; margin:4rem auto; max-width:900px; border-radius:24px; border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(15px);}
-footer{text-align:center; padding:3rem; color:var(--muted); font-size:0.8rem;}
 </style>
 </head>
 <body>
@@ -35,6 +43,5 @@ footer{text-align:center; padding:3rem; color:var(--muted); font-size:0.8rem;}
   <h2 style="color:var(--accent2); margin-bottom:1rem;">Operational Philosophy</h2>
   <p style="font-size:1.1rem; line-height:1.8; color:var(--muted);">CivicLink OS is a centralized digital infrastructure designed to bridge the gap between community members and essential support networks. By leveraging a high-performance interface, we empower residents to discover resources, engage in events, and contribute through volunteerism—all within a single, unified environment.</p>
 </div>
-<footer>&copy; 2026 Tesla STEM HS</footer>
 </body>
 </html>
