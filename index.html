@@ -20,62 +20,15 @@ body{background:var(--bg);color:var(--text);overflow-x:hidden;}
 @keyframes movegrid {0%{background-position:0 0;}100%{background-position:100px 100px;}}
 
 header{padding:2rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2;}
-header h1{font-weight:800; color:var(--accent);}
-nav a{margin-left:1.5rem;color:var(--muted);text-decoration:none;font-weight:600;transition:0.3s;}
+header h1{font-weight:800; color:var(--accent); letter-spacing:-1px;}
+nav a{margin-left:1.5rem;color:var(--muted);text-decoration:none;font-weight:600;transition:0.3s;font-size:0.9rem;}
 nav a:hover, nav a.active{color:var(--accent);}
 
 .hero{text-align:center; padding:4rem 2rem;}
-.hero h2{font-size:3rem; margin-bottom:1rem;}
+.hero h2{font-size:3.5rem; margin-bottom:1rem; font-weight:800;}
 
-.panel{background:var(--panel);backdrop-filter:blur(15px);border-radius:20px;padding:2rem;margin:2rem auto;max-width:1100px;border:1px solid rgba(255,255,255,0.1);}
-.spotlight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-top:2rem;}
-.spotlight-card{background:rgba(255,255,255,0.03); padding:2rem; border-radius:15px; border-left:4px solid var(--accent2); transition:0.3s;}
-.spotlight-card:hover{transform:translateY(-5px); background:rgba(255,255,255,0.07);}
-.tag{display:inline-block; background:var(--accent); color:#000; padding:2px 10px; border-radius:5px; font-size:0.8rem; font-weight:bold; margin-bottom:10px;}
-
-footer{text-align:center;padding:2rem;color:var(--muted); font-size:0.9rem;}
-</style>
-</head>
-<body>
-<div class="grid-lines"></div>
-<header>
-  <h1>CivicLink OS</h1>
-  <nav>
-    <a href="index.html" class="active">Dashboard</a>
-    <a href="resources.html">Resource Hub</a>
-    <a href="submit.html">Add Resource</a>
-    <a href="events.html">Events</a>
-    <a href="about.html">About</a>
-    <a href="references.html">References</a>
-  </nav>
-</header>
-
-<section class="hero">
-  <h2>Community Resource Hub</h2>
-  <p style="color:var(--muted)">Centralized intelligence for local non-profits and support services.</p>
-</section>
-
-<div class="panel">
-  <h2 style="text-align:center;">Featured Resources</h2>
-  <div class="spotlight-grid">
-    <div class="spotlight-card">
-      <span class="tag">TOP PICK</span>
-      <h3>Harbor Food Security</h3>
-      <p>Providing nutritional support and meal planning for low-income families since 2012.</p>
-    </div>
-    <div class="spotlight-card">
-      <span class="tag">ESSENTIAL</span>
-      <h3>TechForward Mentors</h3>
-      <p>Connecting high school students with industry professionals for coding and engineering.</p>
-    </div>
-    <div class="spotlight-card">
-      <span class="tag">WELLNESS</span>
-      <h3>The Oasis Center</h3>
-      <p>A 24/7 mental health facility offering peer-to-peer counseling and crisis support.</p>
-    </div>
-  </div>
-</div>
-
-<footer>&copy; 2026 CivicLink OS - Designed for TSA Webmaster Competition</footer>
-</body>
-</html>
+/* Impact Dashboard Styles */
+.impact-container{display:grid; grid-template-columns:repeat(4, 1fr); gap:1.5rem; max-width:1100px; margin:-2rem auto 3rem auto; position:relative; z-index:5;}
+.stat-card{background:rgba(18,26,47,0.9); border:1px solid var(--accent); padding:1.5rem; border-radius:15px; text-align:center; backdrop-filter:blur(10px);}
+.stat-number{display:block; font-size:2rem; font-weight:800; color:var(--accent2);}
+.stat-label{font-size:0.7rem; text-transform:uppercase; letter-spacing:1px; color:
