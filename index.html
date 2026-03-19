@@ -1,58 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>CivicLink OS | Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#0b0f1a; --panel:rgba(18,26,47,0.85); --accent:#3df2c2; --accent2:#5aa9ff; --text:#e6ebff; --muted:#9aa4c7;
-}
-.high-contrast {
-  --bg:#000; --panel:#111; --accent:#fff; --accent2:#ffff00; --text:#fff; --muted:#eee;
-}
+:root{--bg:#0b0f1a; --panel:rgba(18,26,47,0.85); --accent:#3df2c2; --accent2:#5aa9ff; --text:#e6ebff; --muted:#9aa4c7;}
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
-body{background:var(--bg);color:var(--text);overflow-x:hidden; transition: 0.3s;}
-.grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);background-size:50px 50px;animation: movegrid 50s linear infinite;}
-@keyframes movegrid {0%{background-position:0 0;}100%{background-position:100px 100px;}}
-
-/* Loader */
-#loader{position:fixed;top:0;left:0;width:100%;height:100%;background:#0b0f1a;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;transition:opacity 0.5s ease;}
-.spinner{width:50px;height:50px;border:3px solid rgba(61,242,194,0.1);border-top:3px solid var(--accent);border-radius:50%;animation:spin 1s linear infinite;}
-@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
-
-header{padding:2rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2;}
+body{background:var(--bg);color:var(--text);overflow-x:hidden;}
+.grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);background-size:50px 50px;}
+#loader{position:fixed;top:0;left:0;width:100%;height:100%;background:#0b0f1a;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;}
+.spinner{width:40px;height:40px;border:3px solid rgba(61,242,194,0.1);border-top:3px solid var(--accent);border-radius:50%;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+header{padding:2rem;display:flex;justify-content:space-between;align-items:center;}
 header h1{font-weight:800; color:var(--accent);}
-nav a{margin-left:1.5rem;color:var(--muted);text-decoration:none;font-weight:600;font-size:0.9rem;}
+nav a{margin-left:1.5rem;color:var(--muted);text-decoration:none;font-weight:600;}
 nav a.active{color:var(--accent);}
-
-.breadcrumb{max-width:1100px; margin:0 auto; padding:0 2rem; color:var(--muted); font-size:0.8rem; font-family:monospace;}
-
 .hero{text-align:center; padding:4rem 2rem;}
-.hero h2{font-size:3.5rem; margin-bottom:1rem;}
-
-.impact-container{display:grid; grid-template-columns:repeat(4, 1fr); gap:1.5rem; max-width:1100px; margin:-2rem auto 3rem auto; z-index:5; position:relative;}
+.impact-container{display:grid; grid-template-columns:repeat(4, 1fr); gap:1rem; max-width:1100px; margin:0 auto 3rem auto;}
 .stat-card{background:var(--panel); border:1px solid var(--accent); padding:1.5rem; border-radius:15px; text-align:center;}
 .stat-number{display:block; font-size:2rem; font-weight:800; color:var(--accent2);}
-
-.panel{background:var(--panel); backdrop-filter:blur(15px); border-radius:20px; padding:3rem; margin:2rem auto; max-width:1100px; border:1px solid rgba(255,255,255,0.1);}
-.spotlight-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:2rem;}
-.spotlight-card{background:rgba(255,255,255,0.03); padding:2rem; border-radius:15px; border-left:4px solid var(--accent2); transition:0.3s;}
-.tag{display:inline-block; background:var(--accent); color:#000; padding:2px 10px; border-radius:5px; font-size:0.8rem; font-weight:bold; margin-bottom:10px;}
-
-.access-btn{position:fixed; bottom:20px; right:20px; background:var(--accent2); color:#000; border:none; padding:10px 15px; border-radius:50px; cursor:pointer; font-weight:bold; z-index:100;}
-
-footer{max-width:1100px; margin:4rem auto 0 auto; padding:2rem; border-top:1px solid rgba(255,255,255,0.05); display:grid; grid-template-columns:2fr 1fr 1fr; gap:2rem; color:var(--muted); font-size:0.85rem;}
+.panel{background:var(--panel); border-radius:20px; padding:3rem; margin:2rem auto; max-width:1100px; border:1px solid rgba(255,255,255,0.1);}
+.spotlight-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem;}
+.spotlight-card{background:rgba(255,255,255,0.03); padding:1.5rem; border-radius:15px; border-left:4px solid var(--accent2);}
+.tag{background:var(--accent); color:#000; padding:2px 8px; border-radius:4px; font-size:0.7rem; font-weight:bold;}
+footer{text-align:center; padding:3rem; color:var(--muted); font-size:0.8rem;}
 </style>
 </head>
 <body>
-
-<div id="loader"><div class="spinner"></div><p style="margin-top:20px; font-family:monospace; color:var(--accent);">INITIALIZING_CIVICLINK_OS...</p></div>
-
-<button class="access-btn" onclick="document.body.classList.toggle('high-contrast')">Toggle Accessibility</button>
+<div id="loader"><div class="spinner"></div><p style="margin-top:20px; color:var(--accent); font-family:monospace;">BOOTING_CIVICLINK_OS...</p></div>
 <div class="grid-lines"></div>
-
 <header>
   <h1>CivicLink OS</h1>
   <nav>
@@ -60,45 +37,27 @@ footer{max-width:1100px; margin:4rem auto 0 auto; padding:2rem; border-top:1px s
     <a href="resources.html">Resource Hub</a>
     <a href="submit.html">Add Resource</a>
     <a href="events.html">Events</a>
-    <a href="about.html">About</a>
     <a href="references.html">References</a>
   </nav>
 </header>
-
-<div class="breadcrumb">SYSTEM > DASHBOARD > ROOT</div>
-
-<section class="hero">
-  <h2>Community Resource Hub</h2>
-  <p style="color:var(--muted)">Empowering local residents through centralized digital intelligence.</p>
-</section>
-
+<section class="hero"><h2>Community Resource Hub</h2><p style="color:var(--muted)">v2.0.6 Interactive Network</p></section>
 <div class="impact-container">
-  <div class="stat-card"><span class="stat-number">124</span><span style="font-size:0.7rem; color:var(--muted);">RESOURCES</span></div>
-  <div class="stat-card"><span class="stat-number">8.2k</span><span style="font-size:0.7rem; color:var(--muted);">ACTIVE USERS</span></div>
-  <div class="stat-card"><span class="stat-number">15</span><span style="font-size:0.7rem; color:var(--muted);">PARTNERS</span></div>
-  <div class="stat-card"><span class="stat-number">98%</span><span style="font-size:0.7rem; color:var(--muted);">UPTIME</span></div>
+  <div class="stat-card"><span class="stat-number">124</span><span style="font-size:0.7rem;">RESOURCES</span></div>
+  <div class="stat-card"><span class="stat-number">8.2k</span><span style="font-size:0.7rem;">USERS</span></div>
+  <div class="stat-card"><span class="stat-number">15</span><span style="font-size:0.7rem;">PARTNERS</span></div>
+  <div class="stat-card"><span class="stat-number">98%</span><span style="font-size:0.7rem;">UPTIME</span></div>
 </div>
-
 <div class="panel">
-  <h2 style="text-align:center; margin-bottom:2rem;">Spotlight Resources</h2>
+  <h3 style="margin-bottom:2rem; text-align:center;">Featured Community Nodes</h3>
   <div class="spotlight-grid">
-    <div class="spotlight-card"><span class="tag">TOP PICK</span><h3>Harbor Food Security</h3><p>Providing nutritional support for families.</p></div>
-    <div class="spotlight-card"><span class="tag">ESSENTIAL</span><h3>TechForward Mentors</h3><p>Bridging the STEM gap for local youth.</p></div>
-    <div class="spotlight-card"><span class="tag">WELLNESS</span><h3>The Oasis Center</h3><p>24/7 Mental Health and Crisis support.</p></div>
+    <div class="spotlight-card"><span class="tag">HEALTH</span><h4 style="margin-top:10px;">The Oasis Center</h4><p style="font-size:0.9rem; color:var(--muted);">Mental health and crisis support 24/7.</p></div>
+    <div class="spotlight-card"><span class="tag">EDUCATION</span><h4 style="margin-top:10px;">TechForward</h4><p style="font-size:0.9rem; color:var(--muted);">Youth STEM mentoring and robotics.</p></div>
+    <div class="spotlight-card"><span class="tag">SUPPORT</span><h4 style="margin-top:10px;">Harbor Food</h4><p style="font-size:0.9rem; color:var(--muted);">Nutritional aid for local families.</p></div>
   </div>
 </div>
-
-<footer>
-  <div><h4>CivicLink OS</h4><p>TSA Webmaster 2026 Entry.</p></div>
-  <div><h4>Privacy</h4><p>Zero-Knowledge Data Policy.</p></div>
-  <div><h4>Contact</h4><p>Tesla STEM HS Team 1</p></div>
-</footer>
-
+<footer>&copy; 2026 Tesla STEM HS - Chapter Team 1 | TSA Webmaster Entry</footer>
 <script>
-  window.addEventListener('load', () => {
-    setTimeout(() => { document.getElementById('loader').style.opacity = '0'; 
-    setTimeout(() => document.getElementById('loader').style.display = 'none', 500); }, 1200);
-  });
+  window.onload = () => { setTimeout(() => { document.getElementById('loader').style.display='none'; }, 1000); };
 </script>
 </body>
 </html>
