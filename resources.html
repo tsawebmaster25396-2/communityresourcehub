@@ -3,69 +3,88 @@
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>CivicLink OS | Resource Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0b0f1a; --panel:rgba(18,26,47,0.85); --accent:#3df2c2; --accent2:#5aa9ff; --text:#e6ebff; --muted:#9aa4c7;}
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
-body{background:var(--bg);color:var(--text);min-height:100vh;}
-.grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);background-size:50px 50px;}
-header{padding:2rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.05);position:sticky;top:0;z-index:100;}
-header h1{font-weight:800; color:var(--accent); font-size:1.5rem;}
-nav a{margin-left:1.2rem;color:var(--muted);text-decoration:none;font-weight:600;font-size:0.85rem;}
-nav a.active{color:var(--accent);}
-.container{max-width:1200px; margin:0 auto; padding:3rem 2rem;}
-.toolbar{display:flex; gap:15px; margin-bottom:2rem; flex-wrap:wrap;}
-input, select{background:var(--panel); border:1px solid rgba(255,255,255,0.1); color:white; padding:12px; border-radius:12px; flex:2;}
-.map-toggle{background:var(--accent2); color:#000; border:none; padding:0 25px; border-radius:12px; font-weight:800; cursor:pointer;}
-#mapBox{display:none; width:100%; height:400px; background:rgba(0,0,0,0.3); border:1px solid var(--accent); border-radius:24px; position:relative; margin-bottom:2rem; overflow:hidden;}
-.node{position:absolute; width:14px; height:14px; background:var(--accent); border-radius:50%; box-shadow:0 0 10px var(--accent);}
-.resource-grid{display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:20px;}
-.card{background:var(--panel); padding:2rem; border-radius:24px; border:1px solid rgba(255,255,255,0.08); backdrop-filter:blur(12px); transition:0.3s; display:flex; flex-direction:column; justify-content:space-between; min-height:200px;}
-.card:hover{transform:translateY(-5px); border-color:var(--accent);}
-.category{font-size:0.65rem; font-weight:800; color:var(--accent); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:10px; display:block;}
-footer{text-align:center; padding:3rem; color:var(--muted); font-size:0.8rem;}
-</style>
-</head>
-<body>
-<div class="grid-lines"></div>
-<header>
-  <h1>CivicLink OS</h1>
-  <nav>
-    <a href="index.html">Dashboard</a>
-    <a href="resources.html" class="active">Resource Hub</a>
-    <a href="submit.html">Add Resource</a>
-    <a href="events.html">Events</a>
-    <a href="volunteer.html">Volunteer</a>
-    <a href="about.html">About</a>
-    <a href="references.html">References</a>
-  </nav>
-</header>
-<div class="container">
-  <div class="toolbar">
-    <input type="text" id="find" placeholder="Scan network for keywords..." onkeyup="search()">
-    <select id="filter" onchange="search()"><option value="all">All Sectors</option><option value="Health">Health</option><option value="Edu">Education</option></select>
-    <button class="map-toggle" onclick="toggleMap()">TOGGLE MAP</button>
-  </div>
-  <div id="mapBox"><div class="node" style="top:40%; left:30%;"></div><div class="node" style="top:20%; left:70%;"></div></div>
-  <div class="resource-grid" id="grid">
-    <div class="card" data-cat="Health"><span class="category">Health</span><h3>Oasis Center</h3><p>Mental health intervention protocols.</p></div>
-    <div class="card" data-cat="Edu"><span class="category">Education</span><h3>TechForward</h3><p>STEM and robotic mentoring.</p></div>
-  </div>
-</div>
-<footer>&copy; 2026 Tesla STEM HS</footer>
-<script>
-function search(){
-  let val = document.getElementById('find').value.toLowerCase();
-  let cat = document.getElementById('filter').value;
-  document.querySelectorAll('.card').forEach(c => {
-    let match = (cat === 'all' || c.dataset.cat === cat) && c.innerText.toLowerCase().includes(val);
-    c.style.display = match ? 'flex' : 'none';
-  });
+:root{
+  --bg:#0b0f1a;
+  --panel:rgba(18,26,47,0.8);
+  --accent:#3df2c2;
+  --accent2:#5aa9ff;
+  --text:#e6ebff;
+  --muted:#9aa4c7;
+  --glass: blur(15px) saturate(180%);
 }
-function toggleMap(){
-  let m = document.getElementById('mapBox');
-  m.style.display = (m.style.display === 'none' || m.style.display === '') ? 'block' : 'none';
+
+*{box-sizing:border-box; margin:0; padding:0; font-family:'Inter',sans-serif;}
+body{background:var(--bg); color:var(--text); overflow-x:hidden; min-height: 100vh;}
+
+/* The Signature Grid Background */
+.grid-lines {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+    background: linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), 
+                linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
 }
-</script>
-</body>
-</html>
+
+/* Fixed Header with All Page Names */
+header {
+    padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center;
+    background: rgba(11,15,26,0.8); backdrop-filter: var(--glass);
+    border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 1000;
+}
+header h1 { font-weight: 800; color: var(--accent); font-size: 1.4rem; letter-spacing: -1px; }
+nav { display: flex; gap: 1.2rem; }
+nav a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: 0.8rem; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+nav a:hover, nav a.active { color: var(--accent); text-shadow: 0 0 10px var(--accent); }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+
+/* HUD Control Bar */
+.hud-bar { 
+    display: flex; gap: 15px; margin-bottom: 3rem; background: var(--panel); 
+    padding: 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);
+}
+input, select { 
+    background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); 
+    color: white; padding: 12px 20px; border-radius: 12px; outline: none; transition: 0.3s;
+}
+input:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(61,242,194,0.2); }
+.btn-map { 
+    background: var(--accent); color: #0b0f1a; border: none; padding: 0 25px; 
+    border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.3s;
+}
+
+/* The Cool Resource Squares */
+.resource-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+.card { 
+    background: var(--panel); backdrop-filter: var(--glass);
+    padding: 2.5rem; border-radius: 30px; border: 1px solid rgba(255,255,255,0.08);
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex; flex-direction: column; min-height: 250px; position: relative; overflow: hidden;
+}
+.card:hover { 
+    transform: translateY(-12px) scale(1.02); 
+    border-color: var(--accent2); 
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 20px rgba(90, 169, 255, 0.2); 
+}
+.card::before {
+    content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--accent2);
+}
+.card .tag { font-size: 0.65rem; font-weight: 800; color: var(--accent); letter-spacing: 2px; margin-bottom: 15px; display: block; }
+.card h3 { font-size: 1.5rem; margin-bottom: 15px; font-weight: 800; }
+.card p { color: var(--muted); line-height: 1.6; font-size: 0.95rem; }
+
+/* Map View Overlay */
+#mapBox { 
+    display: none; width: 100%; height: 500px; background: #05070a; 
+    border-radius: 30px; border: 1px solid var(--accent); margin-bottom: 3rem; 
+    position: relative; overflow: hidden;
+    background-image: radial-gradient(var(--accent) 1px, transparent 1px); background-size: 30px 30px;
+}
+.node { 
+    position: absolute; width: 16px; height: 16px; background: var(--accent2); 
+    border-radius: 50%; box-shadow: 0 0 20px var(--accent2); cursor: pointer;
+}
+
+footer { text-align: center; padding: 5rem 2rem; color: var(--muted); font-size: 0.75rem; letter-spacing: 2px; }
+</style
