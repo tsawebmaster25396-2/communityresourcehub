@@ -5,56 +5,59 @@
 <title>CivicLink OS | Resource Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
+/* EXACT CSS COPIED FROM YOUR DASHBOARD */
 :root{--bg:#0b0f1a; --panel:rgba(18,26,47,0.85); --accent:#3df2c2; --accent2:#5aa9ff; --text:#e6ebff; --muted:#9aa4c7;}
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
 body{background:var(--bg);color:var(--text);overflow-x:hidden;}
 
-/* Background Grid */
 .grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);background-size:50px 50px;}
 
-/* Signature Loader */
 #loader{position:fixed;top:0;left:0;width:100%;height:100%;background:#0b0f1a;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;}
 .spinner{width:40px;height:40px;border:3px solid rgba(61,242,194,0.1);border-top:3px solid var(--accent);border-radius:50%;animation:spin 1s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 
-/* Header Navigation */
 header{padding:2rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.05);position:sticky;top:0;z-index:100;}
 header h1{font-weight:800; color:var(--accent); font-size:1.5rem;}
 nav a{margin-left:1.2rem;color:var(--muted);text-decoration:none;font-weight:600;font-size:0.85rem;transition:0.3s;}
-nav a.active, nav a:hover{color:var(--accent);}
+nav a:hover{color:var(--accent);}
+nav a.active{color:var(--accent);}
 
+/* MATCHING THE HERO SECTION */
 .hero{text-align:center; padding:4rem 2rem;}
 
-/* HUD Search Bar */
-.search-container { max-width: 1100px; margin: 0 auto 2rem auto; display: flex; gap: 1rem; }
-input#searchBox { 
-    flex: 1; background: var(--panel); border: 1px solid rgba(255,255,255,0.1); 
-    padding: 1rem 1.5rem; border-radius: 15px; color: white; outline: none; 
-    backdrop-filter: blur(12px); border-left: 4px solid var(--accent);
+/* SEARCH HUD - Styled like your Stat Cards */
+.search-bar-container { max-width: 1100px; margin: 0 auto 2rem auto; }
+#searchBox {
+    width: 100%;
+    background: var(--panel); 
+    border: 1px solid var(--accent); 
+    padding: 1.2rem; 
+    border-radius: 24px; 
+    color: var(--text);
+    backdrop-filter: blur(12px);
+    outline: none;
+    font-size: 1rem;
+    box-shadow: 0 0 15px rgba(61,242,194,0.1);
 }
 
-/* Main Resource Panel */
-.panel{background:var(--panel); border-radius:24px; padding:3rem; margin:0 auto 4rem auto; max-width:1100px; border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(12px);}
-.resource-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:2rem;}
+/* MAIN PANEL - Matches your .panel class exactly */
+.panel{background:var(--panel); border-radius:24px; padding:3rem; margin:2rem auto; max-width:1100px; border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(12px);}
 
-/* Card Style matched to Homepage Spotlight */
-.resource-card{background:rgba(255,255,255,0.03); padding:2rem; border-radius:20px; border-left:4px solid var(--accent2); transition:0.3s; display: flex; flex-direction: column; justify-content: space-between; min-height: 200px;}
-.resource-card:hover{transform:translateY(-8px); background:rgba(255,255,255,0.06); box-shadow: 0 15px 30px rgba(0,0,0,0.3);}
+/* GRID - Matches your .spotlight-grid */
+.spotlight-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem;}
 
-.tag{display: inline-block; background:var(--accent); color:#000; padding:2px 8px; border-radius:4px; font-size:0.7rem; font-weight:bold; text-transform:uppercase; margin-bottom: 1rem;}
-.resource-card h4 { font-size: 1.4rem; margin-bottom: 0.5rem; }
-.resource-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+/* CARD - Matches your .spotlight-card */
+.spotlight-card{background:rgba(255,255,255,0.03); padding:1.5rem; border-radius:20px; border-left:4px solid var(--accent2); transition:0.3s; display: block; text-decoration: none; color: inherit;}
+.spotlight-card:hover{transform:translateY(-5px); background:rgba(255,255,255,0.06);}
+
+.tag{background:var(--accent); color:#000; padding:2px 8px; border-radius:4px; font-size:0.7rem; font-weight:bold; text-transform:uppercase; display: inline-block; margin-bottom: 10px;}
 
 footer{text-align:center; padding:3rem; color:var(--muted); font-size:0.8rem; border-top:1px solid rgba(255,255,255,0.05);}
 </style>
 </head>
 <body>
 
-<div id="loader">
-    <div class="spinner"></div>
-    <p style="margin-top:20px; color:var(--accent); font-family:monospace;">SCANNING_DATABASE...</p>
-</div>
-
+<div id="loader"><div class="spinner"></div><p style="margin-top:20px; color:var(--accent); font-family:monospace;">CONNECTING_TO_HUB...</p></div>
 <div class="grid-lines"></div>
 
 <header>
@@ -71,55 +74,40 @@ footer{text-align:center; padding:3rem; color:var(--muted); font-size:0.8rem; bo
 </header>
 
 <section class="hero">
-    <h2>Global Resource Index</h2>
-    <p style="color:var(--muted)">Filtered access to validated community nodes</p>
+    <h2>Resource Inventory</h2>
+    <p style="color:var(--muted)">v2.0.6 Directory Service</p>
 </section>
 
-<div class="search-container">
-    <input type="text" id="searchBox" placeholder="TYPE_TO_FILTER_NODES..." onkeyup="filterResources()">
+<div class="search-bar-container">
+    <input type="text" id="searchBox" placeholder="SEARCH_DATABASE_FOR_NODES..." onkeyup="filter()">
 </div>
 
 <div class="panel">
-  <div class="resource-grid" id="resourceGrid">
+  <h3 style="margin-bottom:2rem; text-align:center;">Validated Network Nodes</h3>
+  <div class="spotlight-grid" id="resourceGrid">
     
-    <div class="resource-card" data-cat="Health">
-        <div>
-            <span class="tag">HEALTH</span>
-            <h4>The Oasis Center</h4>
-            <p>Providing 24/7 crisis support and mental health wellness protocols for the community.</p>
-        </div>
+    <div class="spotlight-card">
+        <span class="tag">HEALTH</span>
+        <h4 style="margin-top:10px;">The Oasis Center</h4>
+        <p style="font-size:0.9rem; color:var(--muted);">Mental health and crisis support 24/7.</p>
     </div>
 
-    <div class="resource-card" data-cat="Education">
-        <div>
-            <span class="tag">EDUCATION</span>
-            <h4>TechForward</h4>
-            <p>Next-gen STEM mentoring and robotic manufacturing workshops for youth.</p>
-        </div>
+    <div class="spotlight-card">
+        <span class="tag">EDUCATION</span>
+        <h4 style="margin-top:10px;">TechForward</h4>
+        <p style="font-size:0.9rem; color:var(--muted);">Youth STEM mentoring and robotics.</p>
     </div>
 
-    <div class="resource-card" data-cat="Support">
-        <div>
-            <span class="tag">SUPPORT</span>
-            <h4>Harbor Food Bank</h4>
-            <p>Critical nutritional support and meal distribution logistics for local families.</p>
-        </div>
+    <div class="spotlight-card">
+        <span class="tag">SUPPORT</span>
+        <h4 style="margin-top:10px;">Harbor Food</h4>
+        <p style="font-size:0.9rem; color:var(--muted);">Nutritional aid for local families.</p>
     </div>
 
-    <div class="resource-card" data-cat="Education">
-        <div>
-            <span class="tag">EDUCATION</span>
-            <h4>Public Library</h4>
-            <p>Digital literacy center providing high-speed data uplinks and research tools.</p>
-        </div>
-    </div>
-
-    <div class="resource-card" data-cat="Legal">
-        <div>
-            <span class="tag">LEGAL</span>
-            <h4>Civic Justice Lab</h4>
-            <p>Pro-bono legal consultation and civil rights advisory services.</p>
-        </div>
+    <div class="spotlight-card">
+        <span class="tag">EDUCATION</span>
+        <h4 style="margin-top:10px;">Public Library</h4>
+        <p style="font-size:0.9rem; color:var(--muted);">Digital literacy and high-speed data.</p>
     </div>
 
   </div>
@@ -128,24 +116,17 @@ footer{text-align:center; padding:3rem; color:var(--muted); font-size:0.8rem; bo
 <footer>&copy; 2026 Tesla STEM HS - Chapter Team 1 | TSA Webmaster Entry</footer>
 
 <script>
-    // Boot Loader logic
-    window.onload = () => { 
-        setTimeout(() => { 
-            document.getElementById('loader').style.display='none'; 
-        }, 800); 
-    };
+  // Exact Loader Logic from Dashboard
+  window.onload = () => { setTimeout(() => { document.getElementById('loader').style.display='none'; }, 1000); };
 
-    // Filter logic
-    function filterResources() {
-        let input = document.getElementById('searchBox').value.toLowerCase();
-        let cards = document.getElementsByClassName('resource-card');
-        
-        for (let i = 0; i < cards.length; i++) {
-            let text = cards[i].innerText.toLowerCase();
-            cards[i].style.display = text.includes(input) ? "flex" : "none";
-        }
-    }
+  // Resource Filter
+  function filter() {
+      let val = document.getElementById('searchBox').value.toLowerCase();
+      let cards = document.getElementsByClassName('spotlight-card');
+      for(let card of cards) {
+          card.style.display = card.innerText.toLowerCase().includes(val) ? "block" : "none";
+      }
+  }
 </script>
-
 </body>
 </html>
