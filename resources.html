@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>CivicLink OS | Resource Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0b0f1a; --panel:rgba(18,26,47,0.85); --accent:#3df2c2; --accent2:#5aa9ff; --text:#e6ebff; --muted:#9aa4c7;}
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
@@ -12,74 +12,64 @@ body{background:var(--bg);color:var(--text);}
 .grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);background-size:50px 50px;}
 
 header{padding:2rem;display:flex;justify-content:space-between;align-items:center;}
-header h1{font-weight:800;}
-nav a{margin-left:1.5rem;color:var(--muted);text-decoration:none;}
-nav a:hover{color:var(--accent);}
+nav a{margin-left:1.5rem;color:var(--muted);text-decoration:none;font-weight:600;}
 
 .container{max-width:1100px; margin:0 auto; padding:2rem;}
+.breadcrumb{color:var(--muted); font-size:0.8rem; font-family:monospace; margin-bottom:1rem;}
 .controls{display:flex; gap:1rem; margin-bottom:2rem;}
-input, select{background:var(--panel); border:1px solid var(--muted); color:white; padding:12px; border-radius:10px; flex:1;}
+input, select, .view-btn{background:var(--panel); border:1px solid rgba(255,255,255,0.1); color:white; padding:12px; border-radius:10px;}
+.view-btn{cursor:pointer; background:var(--accent2); color:#000; font-weight:bold; border:none;}
+
+#mapView{display:none; width:100%; height:400px; background:rgba(255,255,255,0.05); border-radius:20px; border:1px dashed var(--accent); position:relative; overflow:hidden; margin-bottom:2rem;}
+.map-placeholder{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); text-align:center; color:var(--accent);}
+
 .resource-list{display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;}
-.card{background:var(--panel); padding:1.5rem; border-radius:15px; border:1px solid rgba(255,255,255,0.1);}
+.card{background:var(--panel); padding:1.5rem; border-radius:15px; border:1px solid rgba(255,255,255,0.1); transition:0.3s;}
+.card:hover{border-color:var(--accent2); transform:translateY(-3px);}
 </style>
 </head>
 <body>
 <div class="grid-lines"></div>
-<header>
-  <h1>Resource Hub</h1>
-  <nav>
-    <a href="index.html">Dashboard</a>
-    <a href="resources.html">Resource Hub</a>
-    <a href="submit.html">Add Resource</a>
-    <a href="about.html">About</a>
-    <a href="references.html">References</a>
-  </nav>
+<header><h1>Resource Hub</h1>
+<nav><a href="index.html">Dashboard</a><a href="resources.html" style="color:var(--accent)">Resource Hub</a><a href="submit.html">Add Resource</a><a href="references.html">References</a></nav>
 </header>
 
 <div class="container">
+  <div class="breadcrumb">SYSTEM > RESOURCE_HUB > DIRECTORY</div>
   <div class="controls">
-    <input type="text" id="searchInput" placeholder="Search resources (e.g. food, health, tech)..." onkeyup="filterResources()">
-    <select id="categoryFilter" onchange="filterResources()">
-      <option value="all">All Categories</option>
-      <option value="Health">Health</option>
-      <option value="Education">Education</option>
-      <option value="Support">Support Services</option>
-    </select>
+    <input type="text" id="searchInput" placeholder="Search resources..." onkeyup="filter()" style="flex:2;">
+    <select id="catFilter" onchange="filter()"><option value="all">All</option><option value="Health">Health</option><option value="Edu">Education</option></select>
+    <button class="view-btn" onclick="toggleView()">Toggle Map View</button>
+  </div>
+
+  <div id="mapView">
+    <div class="map-placeholder">
+      <h3 style="font-size:2rem;">[ INTERACTIVE MAP INTERFACE ]</h3>
+      <p>Local Community Nodes Visualized via GPS Protocol</p>
+    </div>
   </div>
 
   <div class="resource-list" id="resourceList">
-    <div class="card" data-cat="Support">
-      <h3>Harbor Food Security</h3>
-      <p>Category: Support Services</p>
-    </div>
-    <div class="card" data-cat="Education">
-      <h3>TechForward Mentors</h3>
-      <p>Category: Education</p>
-    </div>
-    <div class="card" data-cat="Health">
-      <h3>The Oasis Center</h3>
-      <p>Category: Health</p>
-    </div>
-    <div class="card" data-cat="Health">
-      <h3>Community Blood Drive</h3>
-      <p>Category: Health</p>
-    </div>
+    <div class="card" data-cat="Health"><h3>The Oasis Center</h3><p>Crisis and Mental Health Services.</p></div>
+    <div class="card" data-cat="Edu"><h3>TechForward Mentors</h3><p>STEM Education and Robotics.</p></div>
+    <div class="card" data-cat="Health"><h3>Community Health Node</h3><p>Public health and vaccination.</p></div>
+    <div class="card" data-cat="Edu"><h3>Harbor Public Library</h3><p>Digital literacy programs.</p></div>
   </div>
 </div>
 
 <script>
-function filterResources() {
+function filter(){
   let input = document.getElementById('searchInput').value.toLowerCase();
-  let category = document.getElementById('categoryFilter').value;
+  let cat = document.getElementById('catFilter').value;
   let cards = document.getElementsByClassName('card');
-
-  for (let card of cards) {
-    let title = card.querySelector('h3').innerText.toLowerCase();
-    let catMatch = category === "all" || card.getAttribute('data-cat') === category;
-    let textMatch = title.includes(input);
-    
-    card.style.display = (catMatch && textMatch) ? "block" : "none";
+  for(let c of cards){
+    let match = (cat === 'all' || c.dataset.cat === cat) && c.innerText.toLowerCase().includes(input);
+    c.style.display = match ? 'block' : 'none';
   }
+}
+function toggleView(){
+  let mv = document.getElementById('mapView');
+  mv.style.display = (mv.style.display === 'none' || mv.style.display === '') ? 'block' : 'none';
 }
 </script>
 </body>
